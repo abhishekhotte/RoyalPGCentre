@@ -1,44 +1,107 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta charset="utf-8">
+    <title>Royal PG Centre</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
+    <!-- Favicons -->
+    <link href="~/favicon.png" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link href="~/lib/theme-default.css" rel="stylesheet" />
+    @*<link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">*@
+    <link href="https://bootswatch.com/4/litera/bootstrap.min.css" rel="stylesheet" />
+    <!-- Libraries CSS Files -->
+    <link href="~/lib/jquery/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    
+    <!-- Main Stylesheet File -->
+    <link href="~/css/style.css" rel="stylesheet">
+
+
+    <!-- JavaScript Libraries -->
+    <script src="~/lib/jquery/js/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/superfish/hoverIntent.js"></script>
+    <script src="~/lib/superfish/superfish.min.js"></script>
+    <script src="~/lib/wow/wow.min.js"></script>
+    <script src="~/lib/waypoints/waypoints.min.js"></script>
+    <script src="~/lib/counterup/counterup.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="~/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="~/lib/touchSwipe/jquery.touchSwipe.min.js"></script>
+    <!-- Contact Form JavaScript File -->
+    <!-- Template Main Javascript File -->
+    <script src="~/js/main.js"></script>
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <!--==========================
+      Header
+    ============================-->
+    <header id="header" style="background-color: black;">
+        <div class="container-fluid">
+
+            <div id="logo" class="pull-left">
+                <h1><a href="#intro" class="scrollto">Royal PG Centre</a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li class="menu-active"><a href="/home">Home</a></li>
+                    <li><a href="/aboutus/index">About Us</a></li>
+                    <li><a href="/departments">Departments</a></li>
+                    @*<li><a href="/aboutus/courses">Courses offered</a></li>*@
+                    <li><a href="/aboutus/staff">Our Staff</a></li>
+                    <li><a href="/home/events">Events</a></li>
+                    <li class="menu-has-children">
+                        <a href="/services">Services</a>
+                        <ul>
+                            <li><a href="/services/library">Library</a></li>
+                            <li><a href="/services/computerlab">Computer Lab</a></li>
+                            <li><a href="/services/bus">Bus Facility</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/home/contact">Contact Us</a></li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+            </nav><!-- #nav-menu-container -->
+        </div>
+    </header><!-- #header -->
+    <div style="margin-top:90px;min-height: 425px;">
+        @RenderBody()
+    </div>
+
+    <!--==========================
+      Footer
+    ============================-->
+    <footer id="footer">
+        <div class="container">
+            <div class="copyright">
+                &copy; @DateTime.Now.Year - Royal PG Centre. All Rights Reserved.
+                <br />
+                Developed by Abhishek Hotte
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </footer><!-- #footer -->
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+   
+
 </body>
 </html>

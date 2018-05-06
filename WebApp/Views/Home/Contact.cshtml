@@ -1,17 +1,67 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿<!--==========================
+    Contact Section
+  ============================-->
+<section class="wow fadeInUp">
+    <div class="container">
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+        <div class="contact-us">
+            <div class="row">
+                <div class="col-md-4">
+                   <div class="primary-box">
+                       <h3><i class="ion-ios-location-outline icon"></i>Address</h3>
+                       <address>
+                           D.No.10-5-698 <br />
+                           Kanekal Road, S No:183 <br />
+                           Rayadurgam - 515865  <br />
+                           Anantapur Dist.<br />
+                           Andhra Pradesh <br />
+                           India
+                           <br />
+                           +91 8495-253999<br />
+                           +91 9490541099<br />
+                           +91 9440705184
+                           <br />Email: muralirdg@gmail.com
+                       </address>
+                   </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="primary-box ">
+                        <h3><i class="ion-ios-email-outline icon"></i>Contact Us</h3>
+                        <div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                    <div class="validation"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                    <div class="validation"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                                <div class="validation"></div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                                <div class="validation"></div>
+                            </div>
+                            <div class="text-center"><button type="submit">Send Message</button></div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="contact-us">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 filter-app wow fadeInUp">
+                    <div id="google_map" style="height:500px;"  class="map-box">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30872.42783176151!2d76.86830695289395!3d14.70956777793031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb735b2bd7ef49d%3A0xc83c5f6ce7e98b1!2sRoyal+PG+Centre%2C+Andhra+Pradesh+515865%2C+India!5e0!3m2!1sen!2sus!4v1525504589133" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- #contact -->

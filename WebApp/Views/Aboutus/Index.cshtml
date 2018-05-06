@@ -1,0 +1,114 @@
+﻿<script>
+    $(document).ready(function () {
+        $("#btnAddNew").click(function () {
+            $("#divModal").modal("show");
+        })
+    });
+</script>
+<div id="aboutus" class="container">
+    <div class="primary-box">
+        <h3><i class="ion-ios-people-outline icon"></i>Our Staff
+            <input type="button"  value="Add New" id="btnAddNew" class="btn btn-success pull-right" />
+        </h3>
+        <div>
+            <div class="row" id="divProfileContent">
+                <div id="staff{0}" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 wow fadeInUp filter-teaching-staff">
+                    <!-- CONTACT ITEM -->
+                    <div class="panel panel-default">
+                        <div class="panel-body profile">
+                            <div class="profile-image">
+                                <img src="~/images/staff{1}" alt="">
+                            </div>
+                            {6}
+                        </div>
+                        <div class="panel-body">
+                            <div class="contact-info">
+                                <div class="profile-data-name">{2}</div>
+                                <div class="profile-data-title">{3}</div>
+                                <div class="profile-data-title">
+                                    <span class="fa-phone fa fa-lg profile-icon">
+                                    </span>
+                                    <span>{4}</span>
+                                </div>
+                                <div class="profile-data-title">
+                                    <span class="fa-envelope-o fa fa-lg profile-icon">
+                                    </span>
+                                    {5}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END CONTACT ITEM -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal" id="divModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Edit Staff</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="divModalBody">
+                <div class="form-group">
+                    <div class="col-md-9">
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtName" placeholder="Name" maxlength="50" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Designation</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtDesignation" placeholder="Name" maxlength="50" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Mobile No</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtMobileNo" placeholder="Name" maxlength="50" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Email Id</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtEmailId" placeholder="Name" maxlength="50" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Teaching Staff</label>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
+                                        <label class="custom-control-label" for="customRadio1">Yes</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadio2">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 ">
+                        <img src="~/images/no-image.jpg" class="staff-img-update" alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-lg">Save changes</button>
+                <button type="button" class="btn btn-outline-info btn-lg" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
