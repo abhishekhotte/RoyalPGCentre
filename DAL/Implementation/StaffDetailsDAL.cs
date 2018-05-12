@@ -34,7 +34,7 @@ namespace DAL.Implementation
             return obj;
         }
 
-        public object AddUpdate(StaffDetails obj)
+        public object AddUpdate(StaffDetails obj, ref int staffId)
         {
             try
             {
@@ -59,13 +59,15 @@ namespace DAL.Implementation
                     staff.TeachingStaff = s.TeachingStaff;
                 }
                 dbEntities.SaveChanges();
+                staffId = s.Id;
                 return true;
             }
             catch (Exception ex)
             {
                 return false;
+
             }
-            
+
         }
     }
 }

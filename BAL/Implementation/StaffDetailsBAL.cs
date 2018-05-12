@@ -17,9 +17,9 @@ namespace BAL.Implementation
             staffDetails = new StaffDetailsDAL();
         }
 
-        public object AddUpdateStaffDetails(StaffDetails obj)
+        public object AddUpdateStaffDetails(StaffDetails obj, ref int staffId)
         {
-            return staffDetails.AddUpdate(obj);
+            return staffDetails.AddUpdate(obj,ref staffId);
         }
 
         public List<StaffDetails> GetStaffList()

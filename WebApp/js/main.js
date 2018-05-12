@@ -127,18 +127,7 @@ jQuery(document).ready(function( $ ) {
     allowPageScroll:"vertical"
   });
 
-  // Skills section
-  $('#skills').waypoint(function() {
-    $('.progress .progress-bar').each(function() {
-      $(this).css("width", $(this).attr("aria-valuenow") + '%');
-    });
-  }, { offset: '80%'} );
 
-  // jQuery counterUp (used in Facts section)
-  $('[data-toggle="counter-up"]').counterUp({
-    delay: 10,
-    time: 1000
-  });
 
   // Porfolio isotope and filter
   var portfolioIsotope = $('.portfolio-container').isotope({

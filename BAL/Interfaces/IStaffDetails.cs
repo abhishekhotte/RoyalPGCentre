@@ -9,7 +9,7 @@ namespace BAL.Interfaces
 {
     interface IStaffDetails
     {
-        object AddUpdateStaffDetails(StaffDetails obj);
+        object AddUpdateStaffDetails(StaffDetails obj, ref int staffId);
         List<StaffDetails> GetStaffList();
     }
 }

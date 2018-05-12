@@ -1,9 +1,141 @@
-﻿<script>
+﻿
+<script>
+    var operationType = "Add", staffId = 0;;
     $(document).ready(function () {
+        $("#ulMenu li").removeClass("menu-active");
+        $("#liAboutUs").addClass("menu-active");
+        getStaffList();
         $("#btnAddNew").click(function () {
+            operationType = "Add";
+            clearFormFields();
+            $("#divModalheader").text("Add Staff");
             $("#divModal").modal("show");
-        })
+        });
+
+        $("#photoUpload").click(function () {
+            $("#fileUpload").click().change(function () {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    $("#photoUpload").attr("src", reader.result);
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            })
+
+        });
+
+        $("#btnSaveStaff").click(function () {
+            let name = "", designation = "", mobile = "", email = "", teachingStaff = false;
+            name = $("#txtName").val();
+            designation = $("#txtDesignation").val();
+            mobile = $("#txtMobileNo").val();
+            email = $("#txtEmailId").val();
+            image = $("#photoUpload").attr("src");
+            //teachingStaff = $("#rdbTeachingStaff").is(":checked");
+            checkIfFieldEmpty();
+            if (name == "") {
+                showAlertDialog("warning", "Please enter Staff Name");
+                $("#txtName").focus();
+            }
+            else if (designation == "") {
+                showAlertDialog("warning", "Please enter Staff Designation"); $("#txtDesignation").focus();
+            }
+            else if (mobile == "") {
+                showAlertDialog("warning", "Please enter Staff Mobile no"); $("#txtMobileNo").focus();
+            }
+            else if (email == "") {
+                showAlertDialog("warning", "Please enter Staff Email Id"); $("#txtEmailId").focus();
+            }
+            else {
+                showLoader();
+                $("#divModal").modal("hide");
+                var formData = new FormData();
+                var file = document.getElementById("fileUpload");
+                formData.append("fileUpload", file);
+                $.ajax({
+                    dataType: "json",
+                    type: "post",
+                    url: '/AboutUs/AddUpdateStaff',
+                    data: {
+                        id:staffId,
+                        name: name,
+                        designation: designation,
+                        mobile: mobile,
+                        email: email,
+                        image:image
+                    },
+                    success: function (data) {
+                        if (data.result == "success") {
+                            if (operationType == "Add") {
+                                showAlertDialog("success", "Added Successfully");
+                                profileHtml = "<div id='staff" + data.staffId + "' class='col-lg-3 col-md-4 col-sm-6 col-xs-12 wow fadeInUp filter-teaching-staff'><div class='panel panel-default'><div class='panel-body profile'><i class='fa fa-edit staff-edit-icon' data-staff-id='" + data.staffId + "' title='Edit'></i><div class='profile-image'><img id='liSImg"+data.staffId+"' src='/images/staff/" + data.staffId + ".jpg' alt=''></div></div><div class='panel-body'><div class='contact-info'><div class='profile-data-name' id='liSName" + data.staffId + "'>" + name + "</div><div class='profile-data-title' id='liSDesignation" + data.staffId + "'>" + designation + "</div><div class='profile-data-title'><span class='fa-phone fa fa-lg profile-icon'></span><span id='liSMobile" + data.staffId + "'>" + mobile + "</span></div><div class='profile-data-title'><span class='fa-envelope-o fa fa-lg profile-icon'></span><span id='liSEmail" + data.staffId + "'>" + email + "</span></div></div></div></div></div>";
+                                $("#divProfileContent").append(profileHtml);
+                                editStaffList();
+                            }
+                            else {
+                                showAlertDialog("success", "Updated Successfully");
+                                $("#liSName" + staffId).text(name)
+                                $("#liSDesignation" + staffId).text(designation)
+                                $("#liSMobile" + staffId).text(mobile)
+                                $("#liSEmail" + staffId).text(email)
+                                setTimeout(function () {
+                                    $("#liSImg" + staffId).attr("src", image);
+                                },1000)
+                            }
+                        }
+                        hideLoader();
+                    },
+                    error: function (error) {
+                        showAlertDialog("success", "Unable to update Staff details");
+                        hideLoader();
+                    }
+                });
+            }
+        });
     });
+
+    function clearFormFields() {
+        $(".form-control").val("").removeClass("is-invalid");
+        $("#photoUpload").attr("src", "/images/no-image.jpg");
+        setTimeout(function () {
+            $("#txtName").focus();
+        }, 200);
+    }
+
+    function getStaffList() {
+        showLoader();
+        $.ajax({
+            type: "POST",
+            url: '/AboutUs/GetAllStaffDetails',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#divProfileContent").html(data.list);
+                editStaffList();
+                hideLoader();
+            },
+            error: function (error) {
+                showAlertDialog("success", "Unable to get Staff details");
+                hideLoader();
+            }
+        });
+
+    }
+
+    function editStaffList() {
+        $(".staff-edit-icon").click(function () {
+            clearFormFields();
+            staffId = $(this).data("staff-id");
+            $("#txtName").val($("#liSName" + staffId).text());
+            $("#txtDesignation").val($("#liSDesignation" + staffId).text());
+            $("#txtMobileNo").val($("#liSMobile" + staffId).text());
+            $("#txtEmailId").val($("#liSEmail" + staffId).text());
+            $("#photoUpload").attr("src", $("#liSImg" + staffId).attr("src"));
+            operationType = "Edit";
+            $("#divModalheader").text("Edit Staff");
+            $("#divModal").modal("show");
+        });
+    }
 </script>
 <div id="aboutus" class="container">
     <div class="primary-box">
@@ -12,7 +144,7 @@
         </h3>
         <div>
             <div class="row" id="divProfileContent">
-                <div id="staff{0}" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 wow fadeInUp filter-teaching-staff">
+                @*<div id="staff{0}" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 wow fadeInUp filter-teaching-staff">
                     <!-- CONTACT ITEM -->
                     <div class="panel panel-default">
                         <div class="panel-body profile">
@@ -39,7 +171,7 @@
                         </div>
                     </div>
                     <!-- END CONTACT ITEM -->
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
@@ -52,7 +184,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Edit Staff</h5>
+                <h5 class="modal-title" id="divModalheader">Add</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -61,53 +193,48 @@
                 <div class="form-group">
                     <div class="col-md-9">
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-3 col-form-label">Name</label>
+                            <label for="" class="col-sm-3 col-form-label">Name</label>
                             <div class="col-sm-9">
-                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtName" placeholder="Name" maxlength="50" />
+                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtName"  maxlength="50" />
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-3 col-form-label">Designation</label>
+                            <label for="" class="col-sm-3 col-form-label">Designation</label>
                             <div class="col-sm-9">
-                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtDesignation" placeholder="Name" maxlength="50" />
+                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtDesignation" maxlength="50" />
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-3 col-form-label">Mobile No</label>
+                            <label for="" class="col-sm-3 col-form-label">Mobile No</label>
                             <div class="col-sm-9">
-                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtMobileNo" placeholder="Name" maxlength="50" />
+                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtMobileNo" maxlength="50" />
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-3 col-form-label">Email Id</label>
+                            <label for="" class="col-sm-3 col-form-label">Email Id</label>
                             <div class="col-sm-9">
-                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtEmailId" placeholder="Name" maxlength="50" />
+                                <input type="text" name="" value="" class="form-control mandatory-field" id="txtEmailId"  maxlength="50" />
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-3 col-form-label">Teaching Staff</label>
+                        @*<div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">Teaching Staff</label>
                             <div class="col-sm-9">
-                                <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
-                                        <label class="custom-control-label" for="customRadio1">Yes</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadio2">No</label>
-                                    </div>
+                                <div class="form-group" >
+                                    <label class="radio-inline"><input type="radio" id="rdbTeachingStaff" name="optradio"  tabindex="0" checked>Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="rdbNonTeachingStaff" name="optradio"  tabindex="0">No</label>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
-                    <div class="col-md-3 ">
-                        <img src="~/images/no-image.jpg" class="staff-img-update" alt="" />
+                    <div class="col-md-3 " style="text-align:center">
+                        <img id="photoUpload" src="~/images/no-image.jpg" class="staff-img-update" alt="" title="Upload Photo" />
+                        <input type="file" style="display:none" name="name" value=""  accept=".png, .jpg, .jpeg"  id="fileUpload"/>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-success btn-lg">Save changes</button>
-                <button type="button" class="btn btn-outline-info btn-lg" data-dismiss="modal">Close</button>
+                <button type="submit" id="btnSaveStaff" class="btn btn-outline-success btn-lg">Save changes</button>
+                <button type="button"  class="btn btn-outline-info btn-lg" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

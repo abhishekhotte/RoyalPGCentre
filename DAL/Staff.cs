@@ -20,5 +20,6 @@ namespace DAL
         public string Mobile { get; set; }
         public string Email { get; set; }
         public bool TeachingStaff { get; set; }
+        public string Image { get; set; }
     }
 }
