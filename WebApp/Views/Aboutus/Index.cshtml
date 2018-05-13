@@ -1,10 +1,13 @@
-﻿
+﻿<link href="~/css/baguetteBox.min.css" rel="stylesheet" />
+<link href="~/css/gallery-grid.css" rel="stylesheet" />
+<script src="~/js/baguetteBox.min.js"></script>
 <script>
     var operationType = "Add", staffId = 0;;
     $(document).ready(function () {
         $("#ulMenu li").removeClass("menu-active");
         $("#liAboutUs").addClass("menu-active");
         getStaffList();
+
         $("#btnAddNew").click(function () {
             operationType = "Add";
             clearFormFields();
@@ -67,7 +70,7 @@
                         if (data.result == "success") {
                             if (operationType == "Add") {
                                 showAlertDialog("success", "Added Successfully");
-                                profileHtml = "<div id='staff" + data.staffId + "' class='col-lg-3 col-md-4 col-sm-6 col-xs-12 wow fadeInUp filter-teaching-staff'><div class='panel panel-default'><div class='panel-body profile'><i class='fa fa-edit staff-edit-icon' data-staff-id='" + data.staffId + "' title='Edit'></i><div class='profile-image'><img id='liSImg"+data.staffId+"' src='/images/staff/" + data.staffId + ".jpg' alt=''></div></div><div class='panel-body'><div class='contact-info'><div class='profile-data-name' id='liSName" + data.staffId + "'>" + name + "</div><div class='profile-data-title' id='liSDesignation" + data.staffId + "'>" + designation + "</div><div class='profile-data-title'><span class='fa-phone fa fa-lg profile-icon'></span><span id='liSMobile" + data.staffId + "'>" + mobile + "</span></div><div class='profile-data-title'><span class='fa-envelope-o fa fa-lg profile-icon'></span><span id='liSEmail" + data.staffId + "'>" + email + "</span></div></div></div></div></div>";
+                                profileHtml = "<div id='staff" + data.staffId + "' class='col-lg-3 col-md-4 col-sm-6 col-xs-12 wow zoomIn fadeInUp filter-teaching-staff'><div class='panel panel-default'><div class='panel-body profile'><i class='fa fa-edit staff-edit-icon' data-staff-id='" + data.staffId + "' title='Edit'></i><div class='profile-image'><img id='liSImg" + data.staffId + "' src='/images/staff/" + data.staffId + ".jpg' alt=''></div></div><div class='panel-body'><div class='contact-info'><div class='profile-data-name' id='liSName" + data.staffId + "'>" + name + "</div><div class='profile-data-title' id='liSDesignation" + data.staffId + "'>" + designation + "</div><div class='profile-data-title'><span class='fa-phone fa fa-lg profile-icon'></span><span id='liSMobile" + data.staffId + "'>" + mobile + "</span></div><div class='profile-data-title'><span class='fa-envelope-o fa fa-lg profile-icon'></span><span id='liSEmail" + data.staffId + "'>" + email + "</span></div></div></div></div></div>";
                                 $("#divProfileContent").append(profileHtml);
                                 editStaffList();
                             }
@@ -91,6 +94,64 @@
                 });
             }
         });
+
+        //Gallery content
+        getCollegePhotos();
+        $("#galleryUpload").change(function () {
+            var file = this.files;
+            var notImage = false;
+            for (var i = 0; i < this.files.length; i++) {
+                var fileType = file[i]["type"];
+                var ValidImageTypes = ["image/jpeg", "image/png"];
+                if ($.inArray(fileType, ValidImageTypes) < 0) {
+                    notImage = true;
+                    showWarningStatus("Please select JPEG/JPG and PNG images only");
+                    $("#galleryUpload").val("");
+                    return;
+                }
+            }
+        })
+
+        $("#btnGalleryUpload").click(function () {
+            var fileUpload = $("#galleryUpload").get(0);
+            var files = fileUpload.files;
+            if (files.length > 0) {
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+                showLoader();
+                $.ajax({
+                    url: '/AboutUs/UploadCollegePhotos',
+                    type: 'POST',
+                    data: fileData,
+                    success: function (data) {
+                        if (data.result == "success") {
+                            showAlertDialog("success", "Image uploaded successfully");
+                            $("#galleryUpload").val("");
+                            setTimeout(function () {
+                                getCollegePhotos();
+                            }, 2000)
+                        }
+                        else {
+                            showAlertDialog("warning", "Unable to upload gallery photo(s)");
+                        }
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            }
+            else {
+                $("#galleryUpload").focus();
+                showAlertDialog("warning", "Please select images");
+            }
+
+        });
+
     });
 
     function clearFormFields() {
@@ -136,11 +197,33 @@
             $("#divModal").modal("show");
         });
     }
+
+    function getCollegePhotos() {
+        showLoader();
+        $.ajax({
+            url: '/AboutUs/GetCollegePhotos',
+            type: 'POST',
+            success: function (data) {
+                if (data.result == "success") {
+                    $("#divCollegeGallery").html(data.images);
+                    baguetteBox.run('.tz-gallery');
+                }
+                else {
+                    showAlertDialog("warning", "Unable to upload gallery photo(s)");
+                }
+                hideLoader();
+            },
+        });
+    }
 </script>
+
 <div id="aboutus" class="container">
     <div class="primary-box">
         <h3><i class="ion-ios-people-outline icon"></i>Our Staff
-            <input type="button"  value="Add New" id="btnAddNew" class="btn btn-success pull-right" />
+           @if (User.Identity.IsAuthenticated)
+           {
+            <input type="button" value="Add New" id="btnAddNew" class="btn btn-success pull-right" />
+           }
         </h3>
         <div>
             <div class="row" id="divProfileContent">
@@ -175,9 +258,39 @@
             </div>
         </div>
     </div>
+    <br />
+    <div class="primary-box">
+        <h3>
+            <i class="ion-ios-people-outline icon"></i>Our College
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="pull-right">
+                    <form id="formUpload" method="post"></form>
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="file" name="galleryUpload" value="" id="galleryUpload" class="form-control" multiple accept="image/*" />
+                            </td>
+                            <td>
+                                &nbsp;
+
+                                <button id="btnGalleryUpload" type="submit" class="btn btn-success" title="Upload File">
+                                    Upload
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+        </h3>
+      
+        <div class="tz-gallery">
+            <div class="row" id="divCollegeGallery">
+            </div>
+            <br />
+        </div>
+    </div>
 </div>
-
-
 
 
 <div class="modal" id="divModal">

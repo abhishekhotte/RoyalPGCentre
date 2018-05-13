@@ -25,7 +25,7 @@
     <link href="~/lib/animate/animate.min.css" rel="stylesheet">
     <link href="~/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    @*<link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet">*@
 
 
 
@@ -48,7 +48,7 @@
     <script src="~/lib/lightbox//js/lightbox.min.js"></script>
     <script src="~/lib/touchSwipe/jquery.touchSwipe.min.js"></script>
     <script src="~/lib/snackbar/snackbar.js"></script>
-    <script src="~/lib/jquery.spinner.js"></script>
+    <script src="~/js/jquery.spinner.js"></script>
     <!-- Contact Form JavaScript File -->
     <!-- Template Main Javascript File -->
     <script src="~/js/main.js"></script>
@@ -57,10 +57,57 @@
 </head>
 
 <body>
+   
     <!--==========================
       Header
     ============================-->
-    <header id="header" style="background-color: black;">
+    <header id="header">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <style>
+                .container-fluid {
+                    margin-top: 15px;
+                }
+
+                .nav-menu-container {
+                    margin-top: 10px;
+                }
+                #header{
+                    height:100px;
+                }
+                #header.header-scrolled{
+                    height:93px;
+                }
+
+                #header.header-scrolled .container-fluid.nav-menu-container,#header.header-scrolled #logo{
+                    height:90px;
+                    margin-top: 10px;
+                }
+                #header.header-scrolled #logo{
+                    margin-top: 5px;
+                }
+                #nav-menu-container{
+                    margin-top:6px;
+                }
+                .header-scrolled #nav-menu-container{
+                    margin-top:11px;
+                }
+
+                .spinner-loaing{
+                    top:35px;
+                }
+                .header-scrolled #divSpinnerLoader{
+                        top: 32px;
+                }
+                .header-scrolled #divHeaderLoader{
+
+                }
+            </style>
+            <div class="authenticate-header">
+                Welcome&nbsp;<i> @User.Identity.Name</i>
+                &nbsp;&nbsp;&nbsp;&nbsp; <a id="lnkLogout" href="@Url.Action("logout", "account")" style="color:#19b6dd !important;">Logout</a>
+            </div>
+        }
         <div class="container-fluid">
             <div id="divSpinnerLoader" class="spinner-loaing" style="display:none">
                 <div id="js-spinner"></div>
@@ -90,9 +137,9 @@
                 </ul>
             </nav><!-- #nav-menu-container -->
         </div>
-        <div class="progress header-loading" id="divHeaderLoader" style="display:none">
+        @*<div class="progress header-loading" id="divHeaderLoader" style="display:none">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-        </div>
+        </div>*@
     </header><!-- #header -->
     <div style="margin-top:90px;min-height: 425px;">
         @RenderBody()
