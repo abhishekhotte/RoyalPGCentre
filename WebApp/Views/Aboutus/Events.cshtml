@@ -1,0 +1,243 @@
+﻿<script src="~/lib/baguettebox/baguetteBox.min.js"></script>
+<link href="~/lib/baguettebox/baguetteBox.min.css" rel="stylesheet" />
+<link href="~/Content/gallery-grid.css" rel="stylesheet" />
+<script>
+    var operationType = "Add", staffId = 0;;
+    $(document).ready(function () {
+        $("#ulMenu li").removeClass("menu-active");
+        $("#liEvents").addClass("menu-active");
+
+        $('#txtDate').datepicker({
+            clearBtn: true,
+            format: "dd-M-yyyy",
+            autoclose: true,
+            endDate: moment().format("DD-MMM-YYYY"),
+            
+        });
+
+        getEventList();
+
+        $("#btnAddNew").click(function () {
+            operationType = "Add";
+            clearFormFields();
+            $("#divModalheader").text("Add Event");
+            $("#divModal").modal("show");
+        });
+
+        //Gallery content
+        $("#galleryUpload").change(function () {
+            var file = this.files;
+            var notImage = false;
+            for (var i = 0; i < this.files.length; i++) {
+                var fileType = file[i]["type"];
+                var ValidImageTypes = ["image/jpeg", "image/png"];
+                if ($.inArray(fileType, ValidImageTypes) < 0) {
+                    notImage = true;
+                    showAlertDialog("warning", "Please select JPEG/JPG and PNG images only");
+                    $("#galleryUpload").val("");
+                    return;
+                }
+            }
+        })
+
+        $("#btnSaveEvent").click(function () {
+            name = $("#txtName").val();
+            date = $("#txtDate").val();
+            var fileUpload = $("#galleryUpload").get(0);
+            var files = fileUpload.files;
+
+            checkIfFieldEmpty();
+            if (name == "") {
+                showAlertDialog("warning", "Please enter Event Name");
+                $("#txtName").focus();
+            }
+            else if (date == "") {
+                showAlertDialog("warning", "Please enter Event Date"); $("#txtDate").focus();
+            }
+            else if (files.length > 0) {
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+                $("#divModal").modal("hide");
+                showLoader();
+                $.ajax({
+                    url: '/AboutUs/AddEvent?name='+name+'&date='+date,
+                    type: 'POST',
+                    data: fileData,
+                    success: function (data) {
+                        if (data.result == "success") {
+                            $("#liEventList li a").removeClass("li-active");
+                            eventMenu = "<li id='liEvent" + data.eventId + "'><a  class='li-active' onclick='getEventPhotos(" + data.eventId + ")' data-name='" + name + "' data-date='" + date + "' data-id='" + data.eventId + "'><span class='fa fa-angle-right' style='padding-right:5px;'></span>" + name + "</a></li>";
+                            $("#liEventList").append(eventMenu);
+                            showAlertDialog("success", "Event added successfully");
+                            $("#eventDate").text(moment(date).format("DD-MMM-YYYY"));
+                            $("#eventHeader").text(name);
+                            $("#galleryUpload").val("");
+                            $("#divEventGallery").html(data.images);
+                            baguetteBox.run('.tz-gallery');
+
+                        }
+                        else {
+                            showAlertDialog("warning", "Unable to upload Event photo(s)");
+                        }
+                        hideLoader();
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            }
+            else {
+                $("#galleryUpload").focus();
+                showAlertDialog("warning", "Please select images");
+            }
+        });
+
+    });
+
+    function clearFormFields() {
+        $(".form-control").val("").removeClass("is-invalid");
+    }
+
+    function getEventList() {
+        showLoader();
+        $.ajax({
+            type: "POST",
+            url: '/AboutUs/GetEventList',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data.result == "success") {
+                    var temp = "", count = 0;
+                    for (var i = 0; i < data.list.length; i++) {
+                        temp += "<li id='liEvent" + data.list[i].Id + "'><a  onclick='getEventPhotos("+data.list[i].Id+")' data-name='"+data.list[i].Name+"' data-date='" + data.list[i].Date + "' data-id='" + data.list[i].Id + "'><span class='fa fa-angle-right' style='padding-right:5px;'></span>" + data.list[i].Name + "</a></li>";
+                    }
+                    $("#liEventList").html(temp);
+                    if (data.list.length > 0) {
+                        var activeEvent = $("#liEventList li:first a");
+                        activeEvent.addClass("li-active").click();
+                        $("#eventDate").text(moment(activeEvent.data("date")).format("DD-MMM-YYYY"))
+                        $("#eventHeader").text(activeEvent.data("name"))
+                    }
+                }
+                else
+                    showAlertDialog("warning", "Unable to fetch event details");
+
+                hideLoader();
+            },
+            error: function (error) {
+                showAlertDialog("warning", "Unable to fetch event details");
+                hideLoader();
+            }
+        });
+
+    }
+
+    function getEventPhotos(eventId) {
+        $("#liEventList li a").removeClass("li-active");
+        //$("#liEvent" + eventId + " a").addClass("li-active");
+
+        var activeEvent = $("#liEvent" + eventId + " a");
+        $("#eventDate").text(moment(activeEvent.data("date")).format("DD-MMM-YYYY"));
+        $("#eventHeader").text(activeEvent.data("name"));
+        activeEvent.addClass("li-active");
+        showLoader();
+        $.ajax({
+            url: '/AboutUs/GetEventPhotos?eventId=' + eventId,
+            type: 'POST',
+            success: function (data) {
+                $("#divEventGallery").html(data);
+                baguetteBox.run('.tz-gallery');
+                hideLoader();
+            },
+        });
+    }
+
+</script>
+
+<div id="divEvents" class="container">
+    <div class="col-md-4 col-lg-3">
+        <div class="primary-box">
+            <div class="box-header">
+                <h3 class="box-title">Events
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="pull-right box-tools">
+                        <input type="button" value="Add New" id="btnAddNew" class="btn btn-lg btn-success waves-effect waves-light" />
+                    </div>
+                }
+                </h3>
+                
+            </div>
+            <div class="box-body with-border">
+                <ul class="event-list-1" id="liEventList"></ul>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+    <div class="divider-lg visible-xs"></div>
+    <div class="col-md-8 col-lg-9">
+        <div class="primary-box contact-box">
+            <div class="box-header">
+                <h2 class="box-title" id="eventHeader"></h2>
+                 <span id="eventDate" class="pull-right">
+                </span>
+            </div>
+            <div class="box-body with-border" id="eventContent">
+               
+                <div class="tz-gallery">
+                    <div class="row" id="divEventGallery">
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="divModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="divModalheader">Add</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="divModalBody">
+                <div class="col-lg-12">
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="" value="" class="form-control mandatory-field" id="txtName" maxlength="50" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label">Date</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="" value="" class="form-control mandatory-field" id="txtDate" />
+                        </div>
+                    </div>
+                    <form id="formUpload" method="post"></form>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label">Select Images</label>
+                        <div class="col-sm-9">
+                            <input type="file" name="galleryUpload" value="" id="galleryUpload" class="" multiple accept="image/*" />
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSaveEvent" class="btn btn-outline-success btn-lg">Save changes</button>
+                <button type="button" class="btn btn-outline-info btn-lg" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

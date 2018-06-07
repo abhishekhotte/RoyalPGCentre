@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RoyalPGCentreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
         <EntityType Name="Staff">
           <Key>
             <PropertyRef Name="Id" />
@@ -14,47 +22,63 @@
           <Property Name="Designation" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="15" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" />
-          <Property Name="TeachingStaff" Type="bit" Nullable="false" />
-          <Property Name="Image" Type="nvarchar" MaxLength="100" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="RoyalPGCentreModelStoreContainer">
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RoyalPGCentreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="RoyalPGCentreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Events" EntityType="RoyalPGCentreModel.Event" />
+          <EntitySet Name="Staffs" EntityType="RoyalPGCentreModel.Staff" />
+        </EntityContainer>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
         <EntityType Name="Staff">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="TeachingStaff" Type="Boolean" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="RoyalPGCentreEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Staffs" EntityType="Self.Staff" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RoyalPGCentreModelStoreContainer" CdmEntityContainer="RoyalPGCentreEntities">
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="RoyalPGCentreModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Staffs">
             <EntityTypeMapping TypeName="RoyalPGCentreModel.Staff">
               <MappingFragment StoreEntitySet="Staff">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="TeachingStaff" ColumnName="TeachingStaff" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

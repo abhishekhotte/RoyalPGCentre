@@ -29,7 +29,7 @@ namespace DAL.Implementation
                 Designation = s.Designation,
                 Email = s.Email,
                 Mobile = s.Mobile,
-                TeachingStaff = s.TeachingStaff
+                Subject = s.Subject
             }).ToList();
             return obj;
         }
@@ -45,7 +45,7 @@ namespace DAL.Implementation
                     Designation = obj.Designation,
                     Email = obj.Email,
                     Mobile = obj.Mobile,
-                    TeachingStaff = obj.TeachingStaff
+                    Subject = obj.Subject
                 };
                 if (s.Id == 0)
                     dbEntities.Staffs.Add(s);
@@ -56,7 +56,7 @@ namespace DAL.Implementation
                     staff.Designation = s.Designation;
                     staff.Email = s.Email;
                     staff.Mobile = s.Mobile;
-                    staff.TeachingStaff = s.TeachingStaff;
+                    staff.Subject = s.Subject;
                 }
                 dbEntities.SaveChanges();
                 staffId = s.Id;

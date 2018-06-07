@@ -206,8 +206,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AboutusController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\FacilitiesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -220,9 +221,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\baguetteBox.min.css" />
-    <Content Include="css\gallery-grid.css" />
-    <Content Include="css\style.css" />
+    <Content Include="lib\bootstrap-datepicker\bootstrap-datepicker.min.js" />
+    <Content Include="lib\bootstrap-datepicker\bootstrap-datepicker3.min.css" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="lib\baguettebox\baguetteBox.min.css" />
+    <Content Include="Content\gallery-grid.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="img\about-bg.jpg" />
     <Content Include="img\about-mission.jpg" />
@@ -267,24 +271,23 @@
     <Content Include="img\testimonial-3.jpg" />
     <Content Include="img\testimonial-4.jpg" />
     <Content Include="img\testimonial-5.jpg" />
-    <Content Include="js\custom.js" />
+    <Content Include="Scripts\custom.js" />
     <Content Include="Global.asax" />
     <Content Include="images\b1.jpg" />
     <Content Include="images\b2.jpg" />
     <Content Include="images\b3.jpg" />
     <Content Include="images\b4.jpg" />
     <Content Include="index.html" />
-    <Content Include="js\main.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="lib\animate\animate.css" />
     <Content Include="lib\animate\animate.min.css" />
-    <Content Include="js\baguetteBox.min.js" />
+    <Content Include="lib\baguettebox\baguetteBox.min.js" />
     <Content Include="lib\bootstrap\bootstrap.bundle.min.js" />
     <Content Include="lib\bootstrap\bootstrap.css" />
     <Content Include="lib\bootstrap\bootstrap.min.css" />
     <Content Include="lib\bootstrap\bootstrap.min.js" />
     <Content Include="lib\bootstrap\css\bootstrap.css" />
     <Content Include="lib\bootstrap\css\bootstrap.min.css" />
-    <Content Include="lib\bootstrap\fontawesome-webfont.svg" />
     <Content Include="lib\bootstrap\fonts\fontawesome-webfont.eot" />
     <Content Include="lib\bootstrap\fonts\fontawesome-webfont.svg" />
     <Content Include="lib\bootstrap\fonts\fontawesome-webfont.ttf" />
@@ -296,17 +299,11 @@
     <Content Include="lib\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="lib\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="lib\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="lib\bootstrap\glyphicons-halflings-regular.svg" />
-    <Content Include="lib\bootstrap\js\bootstrap.bundle.min.js" />
-    <Content Include="lib\bootstrap\js\bootstrap.min.js" />
     <Content Include="lib\counterup\counterup.min.js" />
     <Content Include="lib\easing\easing.js" />
     <Content Include="lib\easing\easing.min.js" />
     <Content Include="lib\font-awesome\css\font-awesome.css" />
     <Content Include="lib\font-awesome\css\font-awesome.min.css" />
-    <Content Include="lib\font-awesome\font-awesome.css" />
-    <Content Include="lib\font-awesome\font-awesome.min.css" />
-    <Content Include="lib\font-awesome\fontawesome-webfont.svg" />
     <Content Include="lib\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="lib\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="lib\font-awesome\fonts\fontawesome-webfont.ttf" />
@@ -319,19 +316,12 @@
     <Content Include="lib\ionicons\fonts\ionicons.svg" />
     <Content Include="lib\ionicons\fonts\ionicons.ttf" />
     <Content Include="lib\ionicons\fonts\ionicons.woff" />
-    <Content Include="lib\ionicons\ionicons.css" />
-    <Content Include="lib\ionicons\ionicons.min.css" />
-    <Content Include="lib\ionicons\ionicons.svg" />
     <Content Include="lib\isotope\isotope.pkgd.js" />
     <Content Include="lib\isotope\isotope.pkgd.min.js" />
-    <Content Include="js\jquery.spinner.js" />
-    <Content Include="lib\jquery\css\jquery-ui.min.css" />
+    <Content Include="Scripts\jquery.spinner.js" />
     <Content Include="lib\jquery\jquery-migrate.min.js" />
     <Content Include="lib\jquery\jquery-ui.min.css" />
     <Content Include="lib\jquery\jquery.min.js" />
-    <Content Include="lib\jquery\js\jquery-migrate.min.js" />
-    <Content Include="lib\jquery\js\jquery.min.js" />
-    <Content Include="lib\lightbox\close.png" />
     <Content Include="lib\lightbox\css\lightbox.css" />
     <Content Include="lib\lightbox\css\lightbox.min.css" />
     <Content Include="lib\lightbox\images\close.png" />
@@ -340,13 +330,6 @@
     <Content Include="lib\lightbox\images\prev.png" />
     <Content Include="lib\lightbox\js\lightbox.js" />
     <Content Include="lib\lightbox\js\lightbox.min.js" />
-    <Content Include="lib\lightbox\lightbox.css" />
-    <Content Include="lib\lightbox\lightbox.js" />
-    <Content Include="lib\lightbox\lightbox.min.css" />
-    <Content Include="lib\lightbox\lightbox.min.js" />
-    <Content Include="lib\lightbox\loading.gif" />
-    <Content Include="lib\lightbox\next.png" />
-    <Content Include="lib\lightbox\prev.png" />
     <Content Include="lib\owlcarousel\assets\ajax-loader.gif" />
     <Content Include="lib\owlcarousel\assets\owl.carousel.css" />
     <Content Include="lib\owlcarousel\assets\owl.carousel.min.css" />
@@ -366,29 +349,11 @@
     <Content Include="lib\theme-default.css" />
     <Content Include="lib\touchSwipe\jquery.touchSwipe.js" />
     <Content Include="lib\touchSwipe\jquery.touchSwipe.min.js" />
-    <Content Include="lib\waypoints\links.php" />
-    <Content Include="lib\waypoints\waypoints.min.js" />
     <Content Include="lib\wow\wow.js" />
     <Content Include="lib\wow\wow.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="lib\bootstrap\fontawesome-webfont.eot" />
-    <Content Include="lib\bootstrap\fontawesome-webfont.ttf" />
-    <Content Include="lib\bootstrap\fontawesome-webfont.woff" />
-    <Content Include="lib\bootstrap\fontawesome-webfont.woff2" />
-    <Content Include="lib\bootstrap\FontAwesome.otf" />
-    <Content Include="lib\bootstrap\glyphicons-halflings-regular.eot" />
-    <Content Include="lib\bootstrap\glyphicons-halflings-regular.ttf" />
-    <Content Include="lib\bootstrap\glyphicons-halflings-regular.woff" />
-    <Content Include="lib\bootstrap\glyphicons-halflings-regular.woff2" />
-    <Content Include="lib\font-awesome\fontawesome-webfont.eot" />
-    <Content Include="lib\font-awesome\fontawesome-webfont.ttf" />
-    <Content Include="lib\font-awesome\fontawesome-webfont.woff" />
-    <Content Include="lib\font-awesome\fontawesome-webfont.woff2" />
-    <Content Include="lib\font-awesome\FontAwesome.otf" />
-    <Content Include="lib\ionicons\ionicons.eot" />
-    <Content Include="lib\ionicons\ionicons.ttf" />
-    <Content Include="lib\ionicons\ionicons.woff" />
+    <None Include="Properties\PublishProfiles\Royal PG Centre.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -421,14 +386,19 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Aboutus\Index.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\UnauthorizedAccess.cshtml" />
+    <Content Include="Views\Aboutus\Events.cshtml" />
+    <Content Include="Views\Aboutus\OurStaff.cshtml" />
+    <Content Include="Views\Facilities\ComputerLab.cshtml" />
+    <Content Include="Views\Facilities\Library.cshtml" />
+    <Content Include="Views\Facilities\Bus.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\college\" />
+    <Folder Include="images\events\" />
     <Folder Include="images\staff\" />
-    <Folder Include="Views\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

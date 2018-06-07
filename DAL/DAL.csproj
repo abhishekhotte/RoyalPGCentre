@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\StaffDetails.cs" />
+    <Compile Include="Event.cs">
+      <DependentUpon>RoyalPGCentre.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Implementation\EventsDAL.cs" />
     <Compile Include="Implementation\StaffDetailsDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoyalPGCentre.Context.cs">

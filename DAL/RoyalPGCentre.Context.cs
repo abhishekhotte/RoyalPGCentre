@@ -25,6 +25,7 @@ namespace DAL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
     }
 }
