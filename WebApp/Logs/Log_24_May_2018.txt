@@ -1,4 +1,0 @@
------------------------------------
-Date Time: 24-05-2018 10:14:48 PM
-Message: Object reference not set to an instance of an object.
-Exception:    at WebApp.Controllers.HomeController.SendAnEmailToUs(String name, String phone, String email, String msg) in D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Controllers\HomeController.cs:line 39
