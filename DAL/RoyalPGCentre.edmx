@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RoyalPGCentreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="SemesterId" Type="int" />
+          <Property Name="SyllabusPath" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Details" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Events">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,6 +30,13 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="SemesterDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sem" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Staff">
           <Key>
@@ -24,9 +49,86 @@
           <Property Name="Email" Type="nvarchar" MaxLength="100" />
           <Property Name="Subject" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Courses_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_SemesterDetails">
+          <End Role="SemesterDetails" Type="Self.SemesterDetails" Multiplicity="0..1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SemesterDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="SemesterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddCourseDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="departmentId" Type="int" Mode="In" />
+          <Parameter Name="semId" Type="int" Mode="In" />
+          <Parameter Name="syllabusPath" Type="nvarchar" Mode="In" />
+          <Parameter Name="courseId" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetCourseDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetDepartmentsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetSemesterDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="RoyalPGCentreModelStoreContainer">
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SemesterDetails" EntityType="Self.SemesterDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Courses_Departments" Association="Self.FK_Courses_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_SemesterDetails" Association="Self.FK_Courses_SemesterDetails">
+            <End Role="SemesterDetails" EntitySet="SemesterDetails" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -35,6 +137,58 @@
         <EntityContainer Name="RoyalPGCentreEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Events" EntityType="RoyalPGCentreModel.Event" />
           <EntitySet Name="Staffs" EntityType="RoyalPGCentreModel.Staff" />
+          <EntitySet Name="Courses" EntityType="RoyalPGCentreModel.Cours" />
+          <EntitySet Name="Departments" EntityType="RoyalPGCentreModel.Department" />
+          <EntitySet Name="SemesterDetails" EntityType="RoyalPGCentreModel.SemesterDetail" />
+          <AssociationSet Name="FK_Courses_Departments" Association="RoyalPGCentreModel.FK_Courses_Departments">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Cours" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_SemesterDetails" Association="RoyalPGCentreModel.FK_Courses_SemesterDetails">
+            <End Role="SemesterDetail" EntitySet="SemesterDetails" />
+            <End Role="Cours" EntitySet="Courses" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(RoyalPGCentreModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(RoyalPGCentreModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="GetDepartmentsDetails" ReturnType="Collection(RoyalPGCentreModel.GetDepartmentsDetails_Result)" />
+          <FunctionImport Name="GetSemesterDetails" ReturnType="Collection(RoyalPGCentreModel.GetSemesterDetails_Result)" />
+          <FunctionImport Name="GetCourseDetails" ReturnType="Collection(RoyalPGCentreModel.GetCourseDetails_Result)" />
+          <FunctionImport Name="AddCourseDetails">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="departmentId" Mode="In" Type="Int32" />
+            <Parameter Name="semId" Mode="In" Type="Int32" />
+            <Parameter Name="syllabusPath" Mode="In" Type="String" />
+            <Parameter Name="courseId" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Event">
           <Key>
@@ -55,6 +209,88 @@
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="SemesterId" Type="Int32" />
+          <Property Name="SyllabusPath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Department" Relationship="RoyalPGCentreModel.FK_Courses_Departments" FromRole="Cours" ToRole="Department" />
+          <NavigationProperty Name="SemesterDetail" Relationship="RoyalPGCentreModel.FK_Courses_SemesterDetails" FromRole="Cours" ToRole="SemesterDetail" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="RoyalPGCentreModel.FK_Courses_Departments" FromRole="Department" ToRole="Cours" />
+        </EntityType>
+        <EntityType Name="SemesterDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sem" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="RoyalPGCentreModel.FK_Courses_SemesterDetails" FromRole="SemesterDetail" ToRole="Cours" />
+        </EntityType>
+        <Association Name="FK_Courses_Departments">
+          <End Type="RoyalPGCentreModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="RoyalPGCentreModel.Cours" Role="Cours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cours">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_SemesterDetails">
+          <End Type="RoyalPGCentreModel.SemesterDetail" Role="SemesterDetail" Multiplicity="0..1" />
+          <End Type="RoyalPGCentreModel.Cours" Role="Cours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SemesterDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cours">
+              <PropertyRef Name="SemesterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetDepartmentsDetails_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Details" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetSemesterDetails_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Sem" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="GetCourseDetails_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="SemId" Nullable="false" />
+          <Property Type="Int32" Name="DepartmentId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Sem" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Department" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SyllabusPath" Nullable="true" MaxLength="500" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -82,6 +318,89 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="RoyalPGCentreModel.Cours">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="SyllabusPath" ColumnName="SyllabusPath" />
+                <ScalarProperty Name="SemesterId" ColumnName="SemesterId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="RoyalPGCentreModel.Department">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SemesterDetails">
+            <EntityTypeMapping TypeName="RoyalPGCentreModel.SemesterDetail">
+              <MappingFragment StoreEntitySet="SemesterDetails">
+                <ScalarProperty Name="Sem" ColumnName="Sem" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="RoyalPGCentreModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="RoyalPGCentreModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="RoyalPGCentreModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="RoyalPGCentreModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RoyalPGCentreModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="RoyalPGCentreModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RoyalPGCentreModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="RoyalPGCentreModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="RoyalPGCentreModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="GetDepartmentsDetails" FunctionName="RoyalPGCentreModel.Store.GetDepartmentsDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RoyalPGCentreModel.GetDepartmentsDetails_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetSemesterDetails" FunctionName="RoyalPGCentreModel.Store.GetSemesterDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RoyalPGCentreModel.GetSemesterDetails_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Sem" ColumnName="Sem" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCourseDetails" FunctionName="RoyalPGCentreModel.Store.GetCourseDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RoyalPGCentreModel.GetCourseDetails_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SemId" ColumnName="SemId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sem" ColumnName="Sem" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="SyllabusPath" ColumnName="SyllabusPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AddCourseDetails" FunctionName="RoyalPGCentreModel.Store.AddCourseDetails" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

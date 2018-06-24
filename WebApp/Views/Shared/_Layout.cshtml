@@ -18,14 +18,14 @@
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/lib/theme-default.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/bootstrap.min.css" rel="stylesheet" />
-
+    <link href="~/lib/material-button.css" rel="stylesheet" />
     <!-- Libraries CSS Files -->
     <link href="~/lib/jquery/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/lib/animate/animate.min.css" rel="stylesheet">
     <link href="~/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="~/lib/bootstrap-datepicker/bootstrap-datepicker3.min.css" rel="stylesheet" /> 
+    <link href="~/lib/bootstrap-datepicker/bootstrap-datepicker3.min.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
     <link href="~/Content/style.css" rel="stylesheet">
@@ -125,7 +125,7 @@
                     <li id="liStaff"><a href="/about-us/our-staff">Our Staff</a></li>
                     <li id="liEvents"><a href="/about-us/events">Events</a></li>
                     <li id="liFacilities" class="menu-has-children">
-                        <a href="/facilities">Facilities</a>
+                        <a href="javascript:void(0)">Facilities</a>
                         <ul>
                             <li id="liFacilitiesLab"><a href="/facilities/computer-lab">Computer Lab</a></li>
                             <li id="liFacilitiesLibrary"><a href="/facilities/library">Library</a></li>
@@ -136,9 +136,6 @@
                 </ul>
             </nav><!-- #nav-menu-container -->
         </div>
-        @*<div class="progress header-loading" id="divHeaderLoader" style="display:none">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-            </div>*@
     </header><!-- #header -->
     <div style="margin-top:90px;min-height: 425px;">
         @RenderBody()
@@ -148,20 +145,12 @@
       Footer
     ============================-->
     <footer id="footer">
-        <div class="container">
-            <div class="copyright">
-                &copy; @DateTime.Now.Year - Royal PG Centre. All Rights Reserved.
-                <br />
-                Designed & Developed by Abhishek Hotte
-            </div>
+        <div class="copyright">
+            &copy; @DateTime.Now.Year - Royal PG Centre. All Rights Reserved.
+            <br />
+            Designed & Developed by Abhishek Hotte
         </div>
     </footer><!-- #footer -->
-
     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-
-
-    @*<script src="~/lib/mdb/mdb.js"></script>*@
-
-
 </body>
 </html>

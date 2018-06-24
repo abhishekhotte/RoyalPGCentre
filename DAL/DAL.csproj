@@ -51,11 +51,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cours.cs">
+      <DependentUpon>RoyalPGCentre.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Department.cs">
+      <DependentUpon>RoyalPGCentre.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Departments.cs" />
+    <Compile Include="Entities\Courses.cs" />
+    <Compile Include="Entities\Semesters.cs" />
     <Compile Include="Entities\StaffDetails.cs" />
     <Compile Include="Event.cs">
       <DependentUpon>RoyalPGCentre.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetCourseDetails_Result.cs">
+      <DependentUpon>RoyalPGCentre.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDepartmentsDetails_Result.cs">
+      <DependentUpon>RoyalPGCentre.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetSemesterDetails_Result.cs">
+      <DependentUpon>RoyalPGCentre.tt</DependentUpon>
+    </Compile>
     <Compile Include="Implementation\EventsDAL.cs" />
+    <Compile Include="Implementation\DepartmentsDAL.cs" />
     <Compile Include="Implementation\StaffDetailsDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoyalPGCentre.Context.cs">
@@ -72,6 +91,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RoyalPGCentre.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="SemesterDetail.cs">
+      <DependentUpon>RoyalPGCentre.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>RoyalPGCentre.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>RoyalPGCentre.tt</DependentUpon>
     </Compile>
     <Compile Include="Staff.cs">
       <DependentUpon>RoyalPGCentre.tt</DependentUpon>

@@ -7,6 +7,11 @@
       <Diagram DiagramId="684facefa2d64e83956be39954e0a415" Name="Diagram1">
         <EntityTypeShape EntityType="RoyalPGCentreModel.Event" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="RoyalPGCentreModel.Staff" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RoyalPGCentreModel.Cours" Width="1.5" PointX="3" PointY="4" />
+        <EntityTypeShape EntityType="RoyalPGCentreModel.Department" Width="1.5" PointX="0.75" PointY="4.25" />
+        <EntityTypeShape EntityType="RoyalPGCentreModel.SemesterDetail" Width="1.5" PointX="5.5" PointY="4.125" />
+        <AssociationConnector Association="RoyalPGCentreModel.FK_Courses_Departments" />
+        <AssociationConnector Association="RoyalPGCentreModel.FK_Courses_SemesterDetails" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

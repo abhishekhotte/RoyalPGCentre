@@ -1672,11 +1672,11 @@ body.mobile-nav-active #mobile-nav-toggle {
      margin-top:100px !important;
  }
 
- #liEventList{
+ #liEventList, #liDepartmentsList{
          padding: 10px 0px;
  }
 
-  #liEventList li{
+  #liEventList li, #liDepartmentsList li{
       display: block;
     border-bottom: 2px solid #cecece;
     color:black;
@@ -1684,20 +1684,76 @@ body.mobile-nav-active #mobile-nav-toggle {
     line-height: 24px;
   }
 
-  #liEventList li a{
+  #liEventList li a, #liDepartmentsList li a{
       color:black;
       display: block;
     padding: 10px 0;
     font-size: 15px;
     line-height: 19px;
-    font-weight: 500;
+    font-weight: 700;
     font-family: 'Chivo', sans-serif;
     cursor:pointer;
   }
 
-  #liEventList li a:focus,#liEventList li a:active, .li-active{
+  #liEventList li a:focus,#liEventList li a:active, .li-active , #liDepartmentsList li a:focus, #liDepartmentsList li a:active{
       color:#18d26e !important;
   }
 
+@media (min-width: 1200px) {
+    .dept-container {
+        max-width: 1230px;
+    }
+}
 
+
+#ulSemTabs li{
+    width: 16.66%;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus, .nav-tabs > .dropdown.active.open > a:hover{
+           border-top: 2px solid #18d26e !important;
+    color: white;
+    background-color: #18d26e;
+}
+
+#ulSemTabs li a{
+    border: 2px solid #cccccc;
+}
+
+#ulSemTabs .active a{
+    border: 2px solid #18d26e !important;
+}
+
+#divSemDetails table{
+    width:100%;
+    font-size:14px;
+}
+
+#divSemDetails table thead tr th:first-child{
+    width:70%;
+}
+
+#divSemDetails{
+  background: #fff;
+    padding: 20px;
+    border-radius: 0 0 3px 3px;
+    border-width: 3px;
+    margin-top: 6px;
+    margin-right: 11px;
+    border: 2px solid #ccc;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+
+.syllabus-download{
+    font-size: 18px;
+    margin-left: 10px;
+    color: black;
+    cursor:pointer;
+}
+.nav-tabs{
+   border-bottom:0px;
+}
 

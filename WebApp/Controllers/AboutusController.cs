@@ -34,7 +34,7 @@ namespace WebApp.Controllers
             var list = staffDALObj.GetStaffList();
             string profileHtml = "";
             for (int i = 0; i < list.Count; i++)
-                profileHtml += "<div id='staff" + list[i].Id + "' class='col-lg-3 col-md-4 col-sm-6 col-xs-12 wow zoomIn fadeInUp filter-teaching-staff'><div class='panel panel-default'><div class='panel-body profile'>" + (User.Identity.IsAuthenticated ? "<i class='fa fa-edit staff-edit-icon' data-staff-id='" + list[i].Id + "' title='Edit'></i>" : "") + "<div class='profile-image'><img id='liSImg" + list[i].Id + "' src='/images/staff/" + list[i].Id + ".jpg' alt=''></div></div><div class='panel-body'><div class='contact-info'><div class='profile-data-name' id='liSName" + list[i].Id + "'>" + list[i].Name + "</div><div class='profile-data-title' id='liSDesignation" + list[i].Id + "'>" + list[i].Designation + "</div><div class='profile-data-title'><span class='fa-book fa fa-lg profile-icon'></span><span id='liSSubject" + list[i].Id + "'>" + list[i].Subject + "</span></div><div class='profile-data-title'><span class='fa-phone-square fa fa-lg profile-icon'></span><span id='liSMobile" + list[i].Id + "'>" + list[i].Mobile + "</span></div><div class='profile-data-title'><span class='fa-envelope-o fa fa-lg profile-icon'></span><span id='liSEmail" + list[i].Id + "'>" + list[i].Email + "</span></div></div></div></div></div>";
+                profileHtml += "<div id='staff" + list[i].Id + "' class='col-lg-3 col-md-4 col-sm-6 col-xs-12 wow zoomIn fadeInUp filter-teaching-staff'><div class='panel panel-default'><div class='panel-body profile'>" + (User.Identity.IsAuthenticated ? "<i class='fa fa-edit staff-edit-icon' data-staff-id='" + list[i].Id + "' title='Edit'></i>" : "") + "<div class='profile-image'><img id='liSImg" + list[i].Id + "' src='/images/staff/" + list[i].Id + ".jpg' alt='' title='"+list[i].Name+"'></div></div><div class='panel-body'><div class='contact-info'><div class='profile-data-name' id='liSName" + list[i].Id + "'>" + list[i].Name + "</div><div class='profile-data-title' id='liSDesignation" + list[i].Id + "'>" + list[i].Designation + "</div><div class='profile-data-title'><span class='fa-book fa fa-lg profile-icon'></span><span id='liSSubject" + list[i].Id + "'>" + list[i].Subject + "</span></div><div class='profile-data-title'><span class='fa-phone-square fa fa-lg profile-icon'></span><span id='liSMobile" + list[i].Id + "'>" + list[i].Mobile + "</span></div><div class='profile-data-title'><span class='fa-envelope-o fa fa-lg profile-icon'></span><span id='liSEmail" + list[i].Id + "'>" + list[i].Email + "</span></div></div></div></div></div>";
             return profileHtml;
 
         }
@@ -53,7 +53,7 @@ namespace WebApp.Controllers
         }
 
         [CustomAuthorize]
-        public ActionResult AddUpdateStaff(StaffDetails s, string image, HttpPostedFileBase file)
+        public ActionResult AddUpdateStaff(StaffDetails s, string image)
         {
             try
             {
