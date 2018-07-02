@@ -1,0 +1,316 @@
+﻿<script src="~/lib/baguettebox/baguetteBox.min.js"></script>
+<link href="~/lib/baguettebox/baguetteBox.min.css" rel="stylesheet" />
+<link href="~/Content/gallery-grid.css" rel="stylesheet" />
+<script>
+    var operationType = "Add", staffId = 0;;
+    $(document).ready(function () {
+        $("#ulMenu li").removeClass("menu-active");
+        $("#liNewss").addClass("menu-active");
+
+        $('#txtDate').datepicker({
+            clearBtn: true,
+            format: "dd-M-yyyy",
+            autoclose: true,
+            endDate: moment().format("DD-MMM-YYYY"),
+        }).on('changeDate', function (ev) {
+            if(validateDate($(this).val()))
+                $(this).removeClass("is-invalid");
+            else {
+                $(this).addClass("is-invalid").focus();
+                
+            }
+        });
+
+        getNewsList();
+
+        $("#btnAddNew").click(function () {
+            operationType = "Add";
+            clearFormFields();
+            $("#divModalheader").text("Add News");
+            $("#divModal").modal("show");
+            $("#txtName").focus();
+
+        });
+
+        //Gallery content
+        $("#galleryUpload").change(function () {
+            var file = this.files;
+            var notImage = false;
+            for (var i = 0; i < this.files.length; i++) {
+                var fileType = file[i]["type"];
+                var ValidImageTypes = ["image/jpeg", "image/png"];
+                if ($.inArray(fileType, ValidImageTypes) < 0) {
+                    notImage = true;
+                    showAlertDialog("warning", "Please select JPEG/JPG or PNG images only");
+                    $("#galleryUpload").val("");
+                    return;
+                }
+            }
+        });
+
+        $("#attachmentUpload").change(function () {
+            var file = this.files;
+            var notImage = false;
+            for (var i = 0; i < this.files.length; i++) {
+                var fileType = file[i]["type"];
+                var ValidImageTypes = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/msword"];
+                if ($.inArray(fileType, ValidImageTypes) < 0) {
+                    notImage = true;
+                    showAlertDialog("warning", "Please select PDF or Word document only");
+                    $("#attachmentUpload").val("");
+                    return;
+                }
+            }
+        });
+
+        $("#btnSaveNews").click(function () {
+            name = $("#txtName").val();
+            date = $("#txtDate").val();
+            description = $("#txtDescription").val();
+
+            var fileUpload = $("#galleryUpload").get(0);
+            var files = fileUpload.files;
+
+            var attachmentUpload = $("#attachmentUpload").get(0);
+            var attchfiles = attachmentUpload.files;
+
+            checkIfFieldEmpty();
+            if (name == "") {
+                showAlertDialog("warning", "Please enter News heading");
+                $("#txtName").focus();
+            }
+            else if (description == "") {
+                showAlertDialog("warning", "Please enter News Description"); $("#txtDescription").focus();
+            }
+            else if (date == "") {
+                showAlertDialog("warning", "Please select News Date"); $("#txtDate").focus();
+            }
+            else if (!validateDate(date)) {
+                showAlertDialog("warning", "Please select a valid date");
+                $("#txtDate").addClass("is-invalid").focus();
+            }
+            else {
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < attchfiles.length; i++) {
+                    fileData.append(attchfiles[i].name, attchfiles[i]);
+                }
+
+                $("#divModal").modal("hide");
+                showLoader();
+                $.ajax({
+                    url: '/AboutUs/AddUpdateNews?name=' + name + '&date=' + date + '&description=' + description,
+                    type: 'POST',
+                    data: fileData,
+                    success: function (data) {
+                        if (data.result == "success") {
+                            $("#liNewsList li a").removeClass("li-active");
+                            newsMenu = "<li id='liNews" + data.newsId + "'><a title='" + name + "' class='li-active' onclick='GetNewsDetails(" + data.newsId + ")' data-desc='" + description + "' data-name='" + name + "' data-date='" + date + "' data-id='" + data.newsId + "'><span class='fa fa-angle-right' style='padding-right:5px;'></span>" + name + "</a></li>";
+                            $("#liNewsList").prepend(newsMenu);
+                            showAlertDialog("success", "News added successfully");
+                            $("#liNewsList li a.li-active").click();
+                        }
+                        else {
+                            showAlertDialog("warning", "Unable to upload News photo(s)");
+                        }
+                        hideLoader();
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            }
+        });
+
+    });
+
+    function clearFormFields() {
+        $(".form-control").val("").removeClass("is-invalid");
+        $("#galleryUpload, #attachmentUpload").val("");
+    }
+
+    function getNewsList() {
+        showLoader();
+        $.ajax({
+            type: "POST",
+            url: '/AboutUs/getNewsList',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data.result == "success") {
+                    var temp = "", count = 0;
+                    for (var i = 0; i < data.list.length; i++) {
+                        temp += "<li id='liNews" + data.list[i].Id + "'><a title='" + data.list[i].Name + "'  onclick='GetNewsDetails(" + data.list[i].Id + ")' data-desc='" + data.list[i].Description + "' data-name='" + data.list[i].Name + "' data-date='" + data.list[i].Date + "' data-id='" + data.list[i].Id + "'><span class='fa fa-angle-right' style='padding-right:5px;'></span>" + data.list[i].Name + "</a></li>";
+                    }
+                    $("#liNewsList").html(temp);
+                    if (data.list.length > 0) {
+                        var activeNews = $("#liNewsList li:first a");
+                        activeNews.addClass("li-active").click();
+                        //$("#newsDate").text(moment(activeNews.data("date")).format("DD-MMM-YYYY"))
+                        //$("#newsHeader").text(activeNews.data("name"));
+                        //$("#newsDesc").text(activeNews.data("desc"));
+                    }
+                }
+                else
+                    showAlertDialog("warning", "Unable to fetch news details");
+
+                hideLoader();
+            },
+            error: function (error) {
+                showAlertDialog("warning", "Unable to fetch news details");
+                hideLoader();
+            }
+        });
+
+    }
+
+    function GetNewsDetails(newsId) {
+        $("#liNewsList li a").removeClass("li-active");
+        var activeNews = $("#liNews" + newsId + " a");
+        $("#newsDate").text(moment(activeNews.data("date")).format("DD-MMM-YYYY"));
+        $("#newsHeader").text(activeNews.data("name"));
+        $("#newsDesc").text(activeNews.data("desc"));
+
+        activeNews.addClass("li-active");
+        showLoader();
+        $.ajax({
+            url: '/AboutUs/GetNewsDetails?newsId=' + newsId,
+            type: 'POST',
+            success: function (data) {
+                $('html,body').animate({ scrollTop: 6 }, 'slow');
+                if (data.result == "success") {
+                    if (data.images != "") {
+                        $("#divGallery").show();
+                        $("#divNewsGallery").html(data.images);
+                        baguetteBox.run('.tz-gallery');
+                    }
+                    else
+                        $("#divGallery").hide();
+
+                    if (data.attachments != "") {
+                        $("#divAttachments").show().css("margin-top", "-30px").html("<a target='_blank' style='margin-bottom:10px;' class='pull-right btn btn-lg btn-success waves-effect waves-light' href='/AboutUs/GetNewsAttachmentFile?file=" + data.attchmentFile + "&newsId=" + newsId + "'  title='Download'>Download</a><br>" + data.attachments);
+                    }
+                    else
+                        $("#divAttachments").hide().css("margin-top", "0px").html("");
+                }
+                else {
+                    showAlertDialog("warning", "Unable to fetch news details");
+                }
+
+                hideLoader();
+            },
+        });
+    }
+
+</script>
+
+<div id="divNews" class="container">
+    <div class="col-md-4 col-lg-3">
+        <div class="primary-box">
+            <div class="box-header">
+                <h3 class="box-title">
+                    News
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="pull-right box-tools">
+                            <input type="button" value="Add New" id="btnAddNew" class="btn btn-lg btn-success waves-effect waves-light" />
+                        </div>
+                    }
+                </h3>
+
+            </div>
+            <div class="box-body with-border">
+                <ul class="news-list-1" id="liNewsList"></ul>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+    <div class="divider-lg visible-xs"></div>
+    <div class="col-md-8 col-lg-9">
+        <div class="primary-box contact-box" style="min-height:500px;">
+            <div class="box-header">
+                <h2 class="box-title" id="newsHeader"></h2>
+               <div class="col-lg-12">
+                   <span id="newsDate" class="pull-right">
+                   </span>
+               </div>
+                <br />
+
+                <div id="newsDesc" class="col-lg-12">
+                </div>
+            </div>
+            <div class="box-body with-border" id="newsContent">
+                <div class="tz-gallery" id="divGallery">
+                    <div class="row" id="divNewsGallery">
+                    </div>
+                </div>
+
+                <div id="divAttachments">
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="divModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="divModalheader">Add</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="divModalBody">
+                <div class="col-lg-12">
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="" value="" class="form-control mandatory-field" id="txtName" maxlength="200" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Description</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control mandatory-field" id="txtDescription" maxlength="4000" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="" value="" class="form-control mandatory-field" id="txtDate" />
+                        </div>
+                    </div>
+                    <form id="formUpload" method="post"></form>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Images</label>
+                        <div class="col-sm-8">
+                            <input type="file" name="galleryUpload" value="" id="galleryUpload" class="" multiple accept="image/*" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Attachment file</label>
+                        <div class="col-sm-8">
+                            <input type="file" name="attachmentUpload" value="" id="attachmentUpload" class="" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSaveNews" class="btn btn-outline-success btn-lg">Save changes</button>
+                <button type="button" class="btn btn-outline-info btn-lg" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

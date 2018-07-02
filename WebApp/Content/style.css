@@ -1672,11 +1672,11 @@ body.mobile-nav-active #mobile-nav-toggle {
      margin-top:100px !important;
  }
 
- #liEventList, #liDepartmentsList{
+ #liEventList, #liDepartmentsList, #liNewsList{
          padding: 10px 0px;
  }
 
-  #liEventList li, #liDepartmentsList li{
+  #liEventList li, #liDepartmentsList li, #liNewsList li{
       display: block;
     border-bottom: 2px solid #cecece;
     color:black;
@@ -1684,7 +1684,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     line-height: 24px;
   }
 
-  #liEventList li a, #liDepartmentsList li a{
+  #liEventList li a, #liDepartmentsList li a, #liNewsList li a{
       color:black;
       display: block;
     padding: 10px 0;
@@ -1695,7 +1695,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     cursor:pointer;
   }
 
-  #liEventList li a:focus,#liEventList li a:active, .li-active , #liDepartmentsList li a:focus, #liDepartmentsList li a:active{
+  #liEventList li a:focus,#liEventList li a:active, .li-active , #liDepartmentsList li a:focus, #liDepartmentsList li a:active, #liNewsList li a:focus, #liNewsList li a:active{
       color:#18d26e !important;
   }
 
@@ -1749,11 +1749,22 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .syllabus-download{
     font-size: 18px;
-    margin-left: 10px;
+    margin: 0px 10px 0px 10px;
     color: black;
     cursor:pointer;
+    vertical-align:middle;
 }
 .nav-tabs{
    border-bottom:0px;
 }
 
+#newsDesc{
+    margin-top:20px;
+     text-align:justify;
+}
+
+#liNewsList li a, #liEventList li a{
+        white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}

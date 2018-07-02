@@ -28,13 +28,13 @@ namespace WebApp.Controllers
         {
             return View();
         }
-        
+
         public string GetStaffListHtml()
         {
             var list = staffDALObj.GetStaffList();
             string profileHtml = "";
             for (int i = 0; i < list.Count; i++)
-                profileHtml += "<div id='staff" + list[i].Id + "' class='col-lg-3 col-md-4 col-sm-6 col-xs-12 wow zoomIn fadeInUp filter-teaching-staff'><div class='panel panel-default'><div class='panel-body profile'>" + (User.Identity.IsAuthenticated ? "<i class='fa fa-edit staff-edit-icon' data-staff-id='" + list[i].Id + "' title='Edit'></i>" : "") + "<div class='profile-image'><img id='liSImg" + list[i].Id + "' src='/images/staff/" + list[i].Id + ".jpg' alt='' title='"+list[i].Name+"'></div></div><div class='panel-body'><div class='contact-info'><div class='profile-data-name' id='liSName" + list[i].Id + "'>" + list[i].Name + "</div><div class='profile-data-title' id='liSDesignation" + list[i].Id + "'>" + list[i].Designation + "</div><div class='profile-data-title'><span class='fa-book fa fa-lg profile-icon'></span><span id='liSSubject" + list[i].Id + "'>" + list[i].Subject + "</span></div><div class='profile-data-title'><span class='fa-phone-square fa fa-lg profile-icon'></span><span id='liSMobile" + list[i].Id + "'>" + list[i].Mobile + "</span></div><div class='profile-data-title'><span class='fa-envelope-o fa fa-lg profile-icon'></span><span id='liSEmail" + list[i].Id + "'>" + list[i].Email + "</span></div></div></div></div></div>";
+                profileHtml += "<div id='staff" + list[i].Id + "' class='col-lg-3 col-md-4 col-sm-6 col-xs-12 wow zoomIn fadeInUp filter-teaching-staff'><div class='panel panel-default'><div class='panel-body profile'>" + (User.Identity.IsAuthenticated ? "<i class='fa fa-edit staff-edit-icon' data-staff-id='" + list[i].Id + "' title='Edit'></i>" : "") + "<div class='profile-image'><img id='liSImg" + list[i].Id + "' src='/images/staff/" + list[i].Id + ".jpg' alt='' title='" + list[i].Name + "'></div></div><div class='panel-body'><div class='contact-info'><div class='profile-data-name' id='liSName" + list[i].Id + "'>" + list[i].Name + "</div><div class='profile-data-title' id='liSDesignation" + list[i].Id + "'>" + list[i].Designation + "</div><div class='profile-data-title'><span class='fa-book fa fa-lg profile-icon'></span><span id='liSSubject" + list[i].Id + "'>" + list[i].Subject + "</span></div><div class='profile-data-title'><span class='fa-phone-square fa fa-lg profile-icon'></span><span id='liSMobile" + list[i].Id + "'>" + list[i].Mobile + "</span></div><div class='profile-data-title'><span class='fa-envelope-o fa fa-lg profile-icon'></span><span id='liSEmail" + list[i].Id + "'>" + list[i].Email + "</span></div></div></div></div></div>";
             return profileHtml;
 
         }
@@ -96,7 +96,7 @@ namespace WebApp.Controllers
                 return Json(new { result = "error" }, JsonRequestBehavior.AllowGet);
             }
 
-        } 
+        }
         #endregion
 
         #region Gallery section
@@ -190,13 +190,13 @@ namespace WebApp.Controllers
             try
             {
                 string tmpImages = "";
-                DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/images/events/"+eventId));
+                DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/images/events/" + eventId));
                 FileSystemInfo[] files = di.GetFileSystemInfos();
                 files.OrderBy(x => x.LastWriteTime).ToList();
                 foreach (var item in files)
                 {
                     var img = new FileInfo(item.FullName);
-                    tmpImages += "<div class='col-lg-3 col-md-6 col-md-4 wow zoomIn fadeInUp' data-animation-delay='0s' style='animation-delay: 0s;'> <a class='lightbox' href='" + Url.Content(String.Format("~/images/events/"+eventId+"/{0}", img.Name)) + "'><img src = '" + Url.Content(String.Format("~/images/events/"+eventId+"/{0}", img.Name)) + "' /></a></div>";
+                    tmpImages += "<div class='col-lg-3 col-md-6 col-md-4 wow zoomIn fadeInUp' data-animation-delay='0s' style='animation-delay: 0s;'> <a class='lightbox' href='" + Url.Content(String.Format("~/images/events/" + eventId + "/{0}", img.Name)) + "'><img src = '" + Url.Content(String.Format("~/images/events/" + eventId + "/{0}", img.Name)) + "' /></a></div>";
                 }
                 return tmpImages;
             }
@@ -213,9 +213,9 @@ namespace WebApp.Controllers
             {
                 EventsDAL obj = new EventsDAL();
                 int eventId = 0;
-                    obj.Add(e,ref eventId);
+                obj.Add(e, ref eventId);
                 HttpFileCollectionBase files = Request.Files;
-                string path = Server.MapPath("~/images/events/"+ eventId);
+                string path = Server.MapPath("~/images/events/" + eventId);
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
                 for (int i = 0; i < files.Count; i++)
@@ -237,12 +237,136 @@ namespace WebApp.Controllers
                         file.SaveAs(ServerSavePath);
                     }
                 }
-                return Json(new { result = "success", images = GetEventPhotos(eventId), eventId= eventId }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = "success", images = GetEventPhotos(eventId), eventId = eventId }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 WriteLogs.Write(ex);
                 return Json(new { result = "error" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
+
+        #region News
+        public ActionResult News()
+        {
+            return View();
+        }
+
+        public ActionResult GetNewsList()
+        {
+            try
+            {
+                NewsDAL obj = new NewsDAL();
+                return Json(new { result = "success", list = obj.GetNewsList(), JsonRequestBehavior.AllowGet });
+            }
+            catch (Exception ex)
+            {
+                WriteLogs.Write(ex);
+                return Json(new { result = "error" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult GetNewsDetails(int newsId)
+        {
+            try
+            {
+                string tmpImages = "", tmpAttachments = "", attachmentUrl = "", filename = "", serverPath = "";
+                serverPath = Server.MapPath("~/Files/News/Images/" + newsId);
+                DirectoryInfo di;
+                if (Directory.Exists(serverPath))
+                {
+                    di = new DirectoryInfo(serverPath);
+                    FileSystemInfo[] files = di.GetFileSystemInfos();
+                    files.OrderBy(x => x.LastWriteTime).ToList();
+                    foreach (var item in files)
+                    {
+                        var img = new FileInfo(item.FullName);
+                        tmpImages += "<div class='col-lg-3 col-md-6 col-md-4 wow zoomIn fadeInUp' data-animation-delay='0s' style='animation-delay: 0s;'> <a class='lightbox' href='" + Url.Content(String.Format("~/Files/News/images/" + newsId + "/{0}", img.Name)) + "'><img src = '" + Url.Content(String.Format("~/Files/News/images/" + newsId + "/{0}", img.Name)) + "' /></a></div>";
+                    }
+                }
+                serverPath = Server.MapPath("~/Files/News/Attachments/" + newsId);
+                if (Directory.Exists(serverPath))
+                {
+                    di = new DirectoryInfo(serverPath);
+                    FileSystemInfo[] files = di.GetFileSystemInfos();
+                    files.OrderBy(x => x.LastWriteTime).ToList();
+                    foreach (var item in files)
+                    {
+                        filename = item.Name;
+                        var file = new FileInfo(item.FullName);
+                        attachmentUrl = "/Files/News/Attachments/" + newsId + "/" + file.Name;
+                        tmpAttachments += "<iframe style='width:100%;height:600px;border: 2px solid #ccc;' class='doc' src='" + (file.Extension == ".pdf" ? attachmentUrl : "https://docs.google.com/gview?url=" + attachmentUrl + "&embedded=true") + "'></iframe>";
+                    }
+                }
+                return Json(new { result = "success", images = tmpImages, attachments = tmpAttachments, attchmentFile = filename }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                WriteLogs.Write(ex);
+                return Json(new { result = "error" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult AddUpdateNews(DAL.News n)
+        {
+            try
+            {
+                NewsDAL obj = new NewsDAL();
+                int newsId = 0;
+                obj.AddUpdate(n, out newsId);
+                HttpFileCollectionBase files = Request.Files;
+
+                for (int i = 0; i < files.Count; i++)
+                {
+                    HttpPostedFileBase file = files[i];
+                    string fileExt = file.FileName.Split('.').LastOrDefault();
+                    string attachmentFolder = "doc";
+                    if (fileExt == "jpg" || fileExt == "jpeg" || fileExt == "png")
+                        attachmentFolder = "Images";
+                    else
+                        attachmentFolder = "Attachments";
+                    string path = Server.MapPath("~/Files/News/" + attachmentFolder + "/" + newsId);
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    var InputFileName = Path.GetFileName(file.FileName);
+                    var ServerSavePath = Path.Combine(path + "\\" + InputFileName);
+                    //Save file to server folder  
+                    int count = 1;
+                    checkIfFileExists:
+                    if (System.IO.File.Exists(ServerSavePath))
+                    {
+                        ServerSavePath = Path.Combine(path + "\\" + InputFileName.Substring(0, InputFileName.LastIndexOf('.')) + count++ + InputFileName.Substring(InputFileName.IndexOf('.')));
+                        goto checkIfFileExists;
+                    }
+                    else
+                    {
+                        file.SaveAs(ServerSavePath);
+                    }
+                }
+                return Json(new { result = "success", images = GetEventPhotos(newsId), newsId = newsId }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                WriteLogs.Write(ex);
+                return Json(new { result = "error" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult GetNewsAttachmentFile(int? newsId, string file)
+        {
+            string fileExt = file.Split('.').LastOrDefault();
+
+            string path = Server.MapPath("~/Files/News/Attachments/" + newsId + "/" + file);
+            if (System.IO.File.Exists(path))
+            {
+                byte[] filebytes = System.IO.File.ReadAllBytes(path);
+                return File(filebytes, System.Net.Mime.MediaTypeNames.Application.Octet, file);
+            }
+            else
+            {
+                return Content("<script>alert('File not found')</script>");
+
             }
         }
         #endregion

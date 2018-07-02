@@ -1,0 +1,99 @@
+-----------------------------------
+Date Time: 01-07-2018 03:17:15 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\images\events\1'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetEventPhotos(Int32 eventId)
+-----------------------------------
+Date Time: 01-07-2018 07:52:53 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\images\events\2'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetEventPhotos(Int32 eventId)
+-----------------------------------
+Date Time: 01-07-2018 07:53:10 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Files\News\Images\2'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetNewsDetails(Int32 newsId) in D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Controllers\AboutusController.cs:line 276
+-----------------------------------
+Date Time: 01-07-2018 07:53:12 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Files\News\Images\2'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetNewsDetails(Int32 newsId) in D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Controllers\AboutusController.cs:line 276
+-----------------------------------
+Date Time: 01-07-2018 07:53:13 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Files\News\Images\2'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetNewsDetails(Int32 newsId) in D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Controllers\AboutusController.cs:line 276
+-----------------------------------
+Date Time: 01-07-2018 08:10:26 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Files\News\Images\2'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetNewsDetails(Int32 newsId) in D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Controllers\AboutusController.cs:line 276
+-----------------------------------
+Date Time: 01-07-2018 08:14:01 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Files\News\Images\2'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetNewsDetails(Int32 newsId) in D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Controllers\AboutusController.cs:line 278
+-----------------------------------
+Date Time: 01-07-2018 08:14:12 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Files\News\Images\2'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetNewsDetails(Int32 newsId) in D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Controllers\AboutusController.cs:line 278
+-----------------------------------
+Date Time: 01-07-2018 08:14:39 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Files\News\Images\2'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetNewsDetails(Int32 newsId) in D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Controllers\AboutusController.cs:line 278
+-----------------------------------
+Date Time: 01-07-2018 08:30:34 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Files\News\Images\2'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetNewsDetails(Int32 newsId) in D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Controllers\AboutusController.cs:line 278
+-----------------------------------
+Date Time: 01-07-2018 08:30:47 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Files\News\Images\2'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetNewsDetails(Int32 newsId) in D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Controllers\AboutusController.cs:line 278

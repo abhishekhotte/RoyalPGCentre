@@ -32,6 +32,7 @@ namespace DAL
         public virtual DbSet<Cours> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<SemesterDetail> SemesterDetails { get; set; }
+        public virtual DbSet<News> News { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
@@ -174,6 +175,32 @@ namespace DAL
                 new ObjectParameter("syllabusPath", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddCourseDetails", idParameter, nameParameter, departmentIdParameter, semIdParameter, syllabusPathParameter, courseId);
+        }
+    
+        public virtual ObjectResult<GetNewsDetails_Result> GetNewsDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNewsDetails_Result>("GetNewsDetails");
+        }
+    
+        public virtual int AddUpdateNews(Nullable<int> id, string name, string description, Nullable<System.DateTime> date, ObjectParameter newsId)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddUpdateNews", idParameter, nameParameter, descriptionParameter, dateParameter, newsId);
         }
     }
 }

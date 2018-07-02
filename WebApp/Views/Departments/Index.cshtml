@@ -29,18 +29,13 @@
         });
 
         //Gallery content
-        $("#galleryUpload").change(function () {
-            var file = this.files;
-            var notImage = false;
-            for (var i = 0; i < this.files.length; i++) {
-                var fileType = file[i]["type"];
-                var ValidImageTypes = ["image/jpeg", "image/png"];
-                if ($.inArray(fileType, ValidImageTypes) < 0) {
-                    notImage = true;
-                    showAlertDialog("warning", "Please select JPEG/JPG and PNG images only");
-                    $("#galleryUpload").val("");
-                    return;
-                }
+        $("#fileUpload").change(function () {
+            var file = $(this).val();
+            var fileType = file.split(".").pop();
+            if (fileType != "pdf" && fileType != "doc" && fileType != "docx") {
+                showAlertDialog("warning", "Please select Word/PDF document");
+                $(this).val("");
+                return;
             }
         })
 
@@ -73,9 +68,8 @@
                     data: fileData,
                     success: function (data) {
                         if (data.result == "success") {
-                            //$("#liEventList li a").removeClass("li-active");
-                            //eventMenu = "<li id='liEvent" + data.eventId + "'><a  class='li-active' onclick='getEventPhotos(" + data.eventId + ")' data-name='" + name + "' data-date='" + date + "' data-id='" + data.eventId + "'><span class='fa fa-angle-right' style='padding-right:5px;'></span>" + name + "</a></li>";
-                            //$("#liEventList").append(eventMenu);
+                            var tr = "<tr department-id='" + department + "'><td>" + name + "</td><td><a id='syllFile" + data.courseId + "' class='fa fa-download syllabus-download' href='/departments/getsyllabusfile?syllabus=" + data.syllabus + "&courseId=" + data.courseId + "'  title='Download'></a>&nbsp;&nbsp;<a href='javascript:void(0);' class='btn btn-sm btn-success waves-effect waves-light' data-course-id='" + data.courseId + "' onclick=\"updateSyllabusFile(this)\">Update file</a></td></tr>";
+                            $("#tblSem" + semester).find("tbody").append(tr);
                             showAlertDialog("success", "Course added successfully");
                         }
                         else {
@@ -94,10 +88,53 @@
             }
         });
 
+        $('#fileUploadUpdate').change(function () {
+            var file = $(this).val();
+            var fileType = file.split(".").pop();
+            if (fileType != "pdf" && fileType != "doc" && fileType != "docx") {
+                showAlertDialog("warning", "Please select Word/PDF document");
+                return;
+            }
+            courseId = $(this).data("course-id");
+            var fileUpload = $(this).get(0);
+            var files = fileUpload.files;
+            var fileData = new FormData();
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            showLoader();
+            $.ajax({
+                url: '/Departments/AddUpdate?id=' + courseId,
+                type: 'POST',
+                data: fileData,
+                success: function (data) {
+                    if (data.result == "success") {
+                        $("#syllFile" + courseId).attr("href", "/departments/getsyllabusfile?syllabus=" + data.syllabus + "&courseId=" + data.courseId);
+                        showAlertDialog("success", "Syllabus file updated successfully");
+                    }
+                    else {
+                        showAlertDialog("warning", "Unable to update course");
+                    }
+                    hideLoader();
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+
     });
+
+    function updateSyllabusFile(fld) {
+        $('#fileUploadUpdate').data("course-id", $(fld).data("course-id"));
+        $('#fileUploadUpdate').click();
+    }
 
     function clearFormFields() {
         $(".form-control").val("").removeClass("is-invalid");
+        $("#fileUpload").val("");
     }
 
     function getDepartmentCourses(id) {
@@ -134,34 +171,36 @@
                     $("#ulSemTabs").append(options);
 
                     var sem1 = "", sem2 = "", sem3 = "", sem4 = "", sem5 = "", sem6 = "";
+                    fileUpdate = $("#btnAddNew").length ? "&nbsp;&nbsp;<a href='javascript:void(0);' class='btn btn-sm btn-success waves-effect waves-light' data-course-id onclick=\"updateSyllabusFile(this)\">Update file</a>" : "";
                     for (var i = 0; i < data.courses.length; i++) {
+                        semContent = "<tr department-id='" + data.courses[i].DepartmentId + "'><td>" + data.courses[i].Name + "</td><td><a id='syllFile"+data.courses[i].Id+"' target='_blank' class='fa fa-download syllabus-download' href='/departments/getsyllabusfile?syllabus=" + data.courses[i].Syllabus + "&courseId=" + data.courses[i].Id + "'  title='Download'></a>" + fileUpdate.replace("data-course-id", "data-course-id='" + data.courses[i].Id + "'") + "</td></tr>";
                         if (data.courses[i].SemId === 1) 
-                            sem1 += "<tr department-id='" + data.courses[i].DepartmentId + "'><td>" + data.courses[i].Name + "</td><td><a class='fa fa-download syllabus-download' href='/Departments/GetSyllabusFile?courseName=" + data.courses[i].Sem + '_' + data.courses[i].Name + "&courseId=" + data.courses[i].Id + "'  title='Download'></a></td></tr>";
+                            sem1 += semContent;
                         else if (data.courses[i].SemId === 2)
-                            sem2 += "<tr department-id='" + data.courses[i].DepartmentId + "'><td>" + data.courses[i].Name + "</td><td><a class='fa fa-download syllabus-download' href='/Departments/GetSyllabusFile?courseName=" + data.courses[i].Sem + '_' + data.courses[i].Name + "&courseId=" + data.courses[i].Id + "'  title='Download'></a></td></tr>";
+                            sem2 += semContent;
                         else if (data.courses[i].SemId === 3) 
-                            sem3 += "<tr department-id='" + data.courses[i].DepartmentId + "'><td>" + data.courses[i].Name + "</td><td><a class='fa fa-download syllabus-download' href='/Departments/GetSyllabusFile?courseName=" + data.courses[i].Sem + '_' + data.courses[i].Name + "&courseId=" + data.courses[i].Id + "'  title='Download'></a></td></tr>";
+                            sem3 += semContent;
                         else if (data.courses[i].SemId === 4) 
-                            sem4 += "<tr department-id='" + data.courses[i].DepartmentId + "'><td>" + data.courses[i].Name + "</td><td><a class='fa fa-download syllabus-download' href='/Departments/GetSyllabusFile?courseName=" + data.courses[i].Sem + '_' + data.courses[i].Name + "&courseId=" + data.courses[i].Id + "'  title='Download'></a></td></tr>";
+                            sem4 += semContent;
                         else if (data.courses[i].SemId === 5) 
-                            sem5 += "<tr department-id='" + data.courses[i].DepartmentId + "'><td>" + data.courses[i].Name + "</td><td><a class='fa fa-download syllabus-download' href='/Departments/GetSyllabusFile?courseName=" + data.courses[i].Sem + '_' + data.courses[i].Name + "&courseId=" + data.courses[i].Id + "'  title='Download'></a></td></tr>";
+                            sem5 += semContent;
                         else if (data.courses[i].SemId === 6) 
-                            sem6 += "<tr department-id='" + data.courses[i].DepartmentId + "'><td>" + data.courses[i].Name + "</td><td><a class='fa fa-download syllabus-download' href='/Departments/GetSyllabusFile?courseName=" + data.courses[i].Sem + '_' + data.courses[i].Name + "&courseId=" + data.courses[i].Id + "'  title='Download'></a></td></tr>";
+                            sem6 += semContent;
                     }
 
-                    semTabContent += '<div id="sem1" class="tab-pane in"><table class="table table-bordered"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem1 + '</tbody></table></div>';
-                    semTabContent += '<div id="sem2" class="tab-pane in"><table class="table table-bordered"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem2 + '</tbody></table></div>';
-                    semTabContent += '<div id="sem3" class="tab-pane in"><table class="table table-bordered"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem3 + '</tbody></table></div>';
-                    semTabContent += '<div id="sem4" class="tab-pane in"><table class="table table-bordered"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem4 + '</tbody></table></div>';
-                    semTabContent += '<div id="sem5" class="tab-pane in"><table class="table table-bordered"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem5 + '</tbody></table></div>';
-                    semTabContent += '<div id="sem6" class="tab-pane in"><table class="table table-bordered"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem6 + '</tbody></table></div>';
+                    semTabContent += '<div id="sem1" class="tab-pane in"><table id="tblSem1" class="table table-bordered table-hover"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem1 + '</tbody></table></div>';
+                    semTabContent += '<div id="sem2" class="tab-pane in"><table id="tblSem2" class="table table-bordered table-hover"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem2 + '</tbody></table></div>';
+                    semTabContent += '<div id="sem3" class="tab-pane in"><table id="tblSem3" class="table table-bordered table-hover"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem3 + '</tbody></table></div>';
+                    semTabContent += '<div id="sem4" class="tab-pane in"><table id="tblSem4" class="table table-bordered table-hover"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem4 + '</tbody></table></div>';
+                    semTabContent += '<div id="sem5" class="tab-pane in"><table id="tblSem5" class="table table-bordered table-hover"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem5 + '</tbody></table></div>';
+                    semTabContent += '<div id="sem6" class="tab-pane in"><table id="tblSem6" class="table table-bordered table-hover"><thead><tr><th>Subject</th><th>Syllabus</th></tr></thead><tbody>' + sem6 + '</tbody></table></div>';
 
                     $("#divSemDetails").append(semTabContent);
                     $("#ulSemTabs li:first a").click();
                     $("table [department-id]").hide();
                     $("table [department-id=1]").show();
 
-                    if (data.courses.length > 0) {
+                    if (data.departments.length > 0) {
                         var activeCourse = $("#liDepartmentsList li:first a");
                         activeCourse.addClass("li-active");
                     }
@@ -179,7 +218,8 @@
 
     }
 
-    function downloadSyllabusFile(courseName,id) {
+    function downloadSyllabusFile(courseName, id) {
+
         $.ajax({
             url: '/Departments/GetSyllabusFile?courseName=' + courseName+"&courseId="+id,
             type: 'POST',
@@ -237,20 +277,15 @@
                 <div id="divSemDetails" class="tab-content">
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <div style="display:none">
+                            <input type="file" id="fileUploadUpdate" name="name" value="" />
+                        </div>
                         <div class="pull-right" style="margin-bottom:10px">
                             <input type="button" value="Add New" id="btnAddNew" class="btn btn-lg btn-success waves-effect waves-light" />
                         </div>
                     }
                 </div>
             </div>
-            <div class="box-body with-border" id="eventContent">
-
-                <div class="tz-gallery">
-                    <div class="row" id="divEventGallery">
-                    </div>
-                </div>
-            </div>
-            <!-- /.box-body -->
         </div>
     </div>
 </div>
@@ -268,28 +303,28 @@
             <div class="modal-body" id="divModalBody">
                 <div class="col-lg-12">
                     <div class="form-group row">
-                        <label for="" class="col-sm-3 col-form-label">Name</label>
-                        <div class="col-sm-9">
+                        <label for="" class="col-sm-4 col-form-label">Name</label>
+                        <div class="col-sm-8">
                             <input type="text" name="" value="" class="form-control mandatory-field" id="txtName" maxlength="50" />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-sm-3 col-form-label">Department</label>
-                        <div class="col-sm-9">
+                        <label for="" class="col-sm-4 col-form-label">Department</label>
+                        <div class="col-sm-8">
                             <select id="ddlDepartment" class="form-control mandatory-field">
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-sm-3 col-form-label">Semester</label>
-                        <div class="col-sm-9">
+                        <label for="" class="col-sm-4 col-form-label">Semester</label>
+                        <div class="col-sm-8">
                             <select id="ddlSemester" class="form-control mandatory-field"></select>
                         </div>
                     </div>
                     <form id="formUpload" method="post"></form>
                     <div class="form-group row">
-                        <label for="" class="col-sm-3 col-form-label">Select Syllabus document</label>
-                        <div class="col-sm-9">
+                        <label for="" class="col-sm-4 col-form-label">Syllabus document</label>
+                        <div class="col-sm-8">
                             <input type="file" name="fileUpload" value="" id="fileUpload" class="" />
                         </div>
                     </div>

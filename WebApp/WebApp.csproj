@@ -394,9 +394,11 @@
     <Content Include="Views\Facilities\Library.cshtml" />
     <Content Include="Views\Facilities\Bus.cshtml" />
     <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Aboutus\News.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\News\Images\" />
     <Folder Include="images\college\" />
     <Folder Include="images\events\" />
     <Folder Include="images\staff\" />

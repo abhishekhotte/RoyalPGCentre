@@ -12,7 +12,12 @@
             format: "dd-M-yyyy",
             autoclose: true,
             endDate: moment().format("DD-MMM-YYYY"),
-            
+        }).on('changeDate', function (ev) {
+            if (validateDate($(this).val()))
+                $(this).removeClass("is-invalid");
+            else {
+                $(this).addClass("is-invalid").focus();
+            }
         });
 
         getEventList();
@@ -53,6 +58,10 @@
             }
             else if (date == "") {
                 showAlertDialog("warning", "Please enter Event Date"); $("#txtDate").focus();
+            }
+            else if (!validateDate(date)) {
+                showAlertDialog("warning", "Please select a valid date");
+                $("#txtDate").addClass("is-invalid").focus();
             }
             else if (files.length > 0) {
                 // Create FormData object

@@ -1,0 +1,75 @@
+-----------------------------------
+Date Time: 02-07-2018 11:15:38 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\images\events\3'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetEventPhotos(Int32 eventId)
+-----------------------------------
+Date Time: 02-07-2018 11:26:39 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\images\events\4'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetEventPhotos(Int32 eventId)
+-----------------------------------
+Date Time: 02-07-2018 11:28:40 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\images\events\5'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetEventPhotos(Int32 eventId)
+-----------------------------------
+Date Time: 02-07-2018 11:38:05 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\images\events\6'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetEventPhotos(Int32 eventId)
+-----------------------------------
+Date Time: 02-07-2018 11:38:59 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\images\events\7'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetEventPhotos(Int32 eventId)
+-----------------------------------
+Date Time: 02-07-2018 11:40:57 PM
+Message: The data reader is incompatible with the specified 'RoyalPGCentreModel.GetNewsDetails_Result'. A member of the type, 'Attachment', does not have a corresponding column in the data reader with the same name.
+Exception:    at System.Data.Entity.Core.Query.InternalTrees.ColumnMapFactory.GetMemberOrdinalFromReader(DbDataReader storeDataReader, EdmMember member, EdmType currentType, Dictionary`2 renameList)
+   at System.Data.Entity.Core.Query.InternalTrees.ColumnMapFactory.GetColumnMapsForType(DbDataReader storeDataReader, EdmType edmType, Dictionary`2 renameList)
+   at System.Data.Entity.Core.Query.InternalTrees.ColumnMapFactory.CreateColumnMapFromReaderAndType(DbDataReader storeDataReader, EdmType edmType, EntitySet entitySet, Dictionary`2 renameList)
+   at System.Data.Entity.Core.Query.InternalTrees.ColumnMapFactory.CreateFunctionImportStructuralTypeColumnMap(DbDataReader storeDataReader, FunctionImportMappingNonComposable mapping, Int32 resultSetIndex, EntitySet entitySet, StructuralType baseStructuralType)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.FunctionColumnMapGenerator.System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.IColumnMapGenerator.CreateColumnMap(DbDataReader reader)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.CreateColumnMap(DbDataReader storeDataReader, Int32 resultSetIndex)
+   at System.Data.Entity.Core.Objects.ObjectContext.MaterializedDataRecord[TElement](EntityCommand entityCommand, DbDataReader storeReader, Int32 resultSetIndex, ReadOnlyCollection`1 entitySets, EdmType[] edmTypes, ShaperFactory`1 shaperFactory, MergeOption mergeOption, Boolean streaming)
+   at System.Data.Entity.Core.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyCollection`1 entitySets, EdmType[] edmTypes, ExecutionOptions executionOptions)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass47`1.<ExecuteFunction>b__46()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass47`1.<ExecuteFunction>b__45()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ExecutionOptions executionOptions, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ObjectParameter[] parameters)
+   at DAL.RoyalPGCentreEntities.GetNewsDetails() in D:\MS.Net\Projects\Royal PG Centre\source code\DAL\RoyalPGCentre.Context.cs:line 207
+   at DAL.Implementation.NewsDAL.GetNewsList() in D:\MS.Net\Projects\Royal PG Centre\source code\DAL\Implementation\NewsDAL.cs:line 26
+   at WebApp.Controllers.AboutusController.GetNewsList()
+-----------------------------------
+Date Time: 02-07-2018 11:56:08 PM
+Message: Could not find a part of the path 'D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\images\events\8'.
+Exception:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.DirectoryInfo.InternalGetFileSystemInfos(String searchPattern, SearchOption searchOption)
+   at System.IO.DirectoryInfo.GetFileSystemInfos()
+   at WebApp.Controllers.AboutusController.GetEventPhotos(Int32 eventId) in D:\MS.Net\Projects\Royal PG Centre\source code\WebApp\Controllers\AboutusController.cs:line 194

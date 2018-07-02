@@ -12,6 +12,7 @@
         <EntityTypeShape EntityType="RoyalPGCentreModel.SemesterDetail" Width="1.5" PointX="5.5" PointY="4.125" />
         <AssociationConnector Association="RoyalPGCentreModel.FK_Courses_Departments" />
         <AssociationConnector Association="RoyalPGCentreModel.FK_Courses_SemesterDetails" />
+        <EntityTypeShape EntityType="RoyalPGCentreModel.News" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
