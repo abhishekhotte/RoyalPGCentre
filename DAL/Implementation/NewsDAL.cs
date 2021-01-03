@@ -23,14 +23,16 @@ namespace DAL.Implementation
 
         public List<Entities.NewsDetails> GetNewsList()
         {
-            return dbEntities.GetNewsDetails().Select(s => new Entities.NewsDetails()
+            var tmp= dbEntities.GetNewsDetails().Select(s => new Entities.NewsDetails()
             {
                 Id = s.Id,
                 Name=s.Name,
                 Description=s.Description,
-                Date=Convert.ToDateTime(s.Date),
+                Date= Convert.ToDateTime(s.Date),
                 CreatedDate = Convert.ToDateTime(s.CreatedDate),
-            }).ToList();
+            }).Where(d=>d.Date >= DateTime.Now)
+            .ToList();
+            return tmp;
         }
 
         public object AddUpdate(News obj, out int newsId)
@@ -39,13 +41,13 @@ namespace DAL.Implementation
             try
             {
                 ObjectParameter outparameter = new ObjectParameter("newsId", typeof(int));
-                dbEntities.AddUpdateNews(obj.Id, obj.Name, obj.Description, obj.Date, outparameter);
+                dbEntities.AddUpdateNews(obj.Id, obj.Name, obj.Description, obj.Date, obj.ExpiresDate, outparameter);
                 newsId = Convert.ToInt32(outparameter.Value);
                 return "success";
             }
             catch (Exception ex)
             {
-                return "failure";
+                throw ex;
             }
 
         }

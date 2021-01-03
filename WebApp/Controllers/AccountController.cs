@@ -51,7 +51,7 @@ namespace WebApp.Controllers
                     return Redirect(Url.Action("Index", "Home"));
                 }
                 else
-                    return Redirect("https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:59307/account/unauthorized-access");
+                    return Redirect("https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://royalpgcentre.com/account/unauthorized-access");
             }
             else
                 return Redirect(Url.Action("Login", "Account"));
@@ -72,7 +72,7 @@ namespace WebApp.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Abandon();
-            return Redirect("https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:59307/home");
+            return Redirect("https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://royalpgcentre.com/home");
         }
     }
 }

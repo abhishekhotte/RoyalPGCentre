@@ -10,8 +10,8 @@ namespace WebApp.Models
     {
         public static void Write(Exception obj)
         {
-            string path = HttpContext.Current.Server.MapPath("~\\Logs");
-            string file = path + "\\Log_" + DateTime.Now.ToString("dd_MMM_yyyy") + ".txt";
+            string path = System.Web.Hosting.HostingEnvironment.MapPath("~//Logs");
+            string file = path + "//Log_" + DateTime.Now.ToString("dd_MMM_yyyy") + ".txt";
             FileStream fs = null;
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);

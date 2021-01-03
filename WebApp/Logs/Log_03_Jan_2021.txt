@@ -1,0 +1,117 @@
+-----------------------------------
+Date Time: 03-01-2021 16:31:57
+Message: The underlying provider failed on Open.
+Exception:    at System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   at System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass47`1.<ExecuteFunction>b__45()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ExecutionOptions executionOptions, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ObjectParameter[] parameters)
+   at DAL.RoyalPGCentreEntities.GetNewsDetails() in E:\FL\git\RoyalPGCentre\DAL\RoyalPGCentre.Context.cs:line 182
+   at DAL.Implementation.NewsDAL.GetNewsList() in E:\FL\git\RoyalPGCentre\DAL\Implementation\NewsDAL.cs:line 26
+   at WebApp.Controllers.AboutusController.GetNewsList() in E:\FL\git\RoyalPGCentre\WebApp\Controllers\AboutusController.cs:line 261
+-----------------------------------
+Date Time: 03-01-2021 16:34:21
+Message: The underlying provider failed on Open.
+Exception:    at DAL.Implementation.NewsDAL.AddUpdate(News obj, Int32& newsId) in E:\FL\git\RoyalPGCentre\DAL\Implementation\NewsDAL.cs:line 49
+   at WebApp.Controllers.AboutusController.AddUpdateNews(News n) in E:\FL\git\RoyalPGCentre\WebApp\Controllers\AboutusController.cs:line 317
+-----------------------------------
+Date Time: 03-01-2021 16:38:26
+Message: The underlying provider failed on Open.
+Exception:    at System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   at System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass47`1.<ExecuteFunction>b__45()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ExecutionOptions executionOptions, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ObjectParameter[] parameters)
+   at DAL.RoyalPGCentreEntities.GetNewsDetails() in E:\FL\git\RoyalPGCentre\DAL\RoyalPGCentre.Context.cs:line 182
+   at DAL.Implementation.NewsDAL.GetNewsList() in E:\FL\git\RoyalPGCentre\DAL\Implementation\NewsDAL.cs:line 26
+   at WebApp.Controllers.AboutusController.GetNewsList() in E:\FL\git\RoyalPGCentre\WebApp\Controllers\AboutusController.cs:line 261
+-----------------------------------
+Date Time: 03-01-2021 16:39:09
+Message: The underlying provider failed on Open.
+Exception:    at System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   at System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass47`1.<ExecuteFunction>b__45()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ExecutionOptions executionOptions, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ObjectParameter[] parameters)
+   at DAL.RoyalPGCentreEntities.GetNewsDetails() in E:\FL\git\RoyalPGCentre\DAL\RoyalPGCentre.Context.cs:line 182
+   at DAL.Implementation.NewsDAL.GetNewsList() in E:\FL\git\RoyalPGCentre\DAL\Implementation\NewsDAL.cs:line 26
+   at WebApp.Controllers.AboutusController.GetNewsList() in E:\FL\git\RoyalPGCentre\WebApp\Controllers\AboutusController.cs:line 261
+-----------------------------------
+Date Time: 03-01-2021 16:49:56
+Message: The underlying provider failed on Open.
+Exception:    at System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   at System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass47`1.<ExecuteFunction>b__45()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ExecutionOptions executionOptions, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ObjectParameter[] parameters)
+   at DAL.RoyalPGCentreEntities.GetNewsDetails() in E:\FL\git\RoyalPGCentre\DAL\RoyalPGCentre.Context.cs:line 182
+   at DAL.Implementation.NewsDAL.GetNewsList() in E:\FL\git\RoyalPGCentre\DAL\Implementation\NewsDAL.cs:line 26
+   at WebApp.Controllers.AboutusController.GetNewsList() in E:\FL\git\RoyalPGCentre\WebApp\Controllers\AboutusController.cs:line 261
+-----------------------------------
+Date Time: 03-01-2021 16:50:08
+Message: The underlying provider failed on Open.
+Exception:    at System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   at System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass47`1.<ExecuteFunction>b__45()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ExecutionOptions executionOptions, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ObjectParameter[] parameters)
+   at DAL.RoyalPGCentreEntities.GetNewsDetails() in E:\FL\git\RoyalPGCentre\DAL\RoyalPGCentre.Context.cs:line 182
+   at DAL.Implementation.NewsDAL.GetNewsList() in E:\FL\git\RoyalPGCentre\DAL\Implementation\NewsDAL.cs:line 26
+   at WebApp.Controllers.AboutusController.GetNewsList() in E:\FL\git\RoyalPGCentre\WebApp\Controllers\AboutusController.cs:line 261
+-----------------------------------
+Date Time: 03-01-2021 18:38:34
+Message: The underlying provider failed on Open.
+Exception:    at System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   at System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass47`1.<ExecuteFunction>b__45()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ExecutionOptions executionOptions, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ObjectParameter[] parameters)
+   at DAL.RoyalPGCentreEntities.GetNewsDetails() in E:\FL\git\RoyalPGCentre\DAL\RoyalPGCentre.Context.cs:line 182
+   at DAL.Implementation.NewsDAL.GetNewsList() in E:\FL\git\RoyalPGCentre\DAL\Implementation\NewsDAL.cs:line 26
+   at WebApp.Controllers.AboutusController.GetNewsList() in E:\FL\git\RoyalPGCentre\WebApp\Controllers\AboutusController.cs:line 261
+-----------------------------------
+Date Time: 03-01-2021 18:52:43
+Message: The underlying provider failed on Open.
+Exception:    at System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   at System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass47`1.<ExecuteFunction>b__45()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ExecutionOptions executionOptions, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ObjectParameter[] parameters)
+   at DAL.RoyalPGCentreEntities.GetNewsDetails() in E:\FL\git\RoyalPGCentre\DAL\RoyalPGCentre.Context.cs:line 182
+   at DAL.Implementation.NewsDAL.GetNewsList() in E:\FL\git\RoyalPGCentre\DAL\Implementation\NewsDAL.cs:line 26
+   at WebApp.Controllers.AboutusController.GetNewsList() in E:\FL\git\RoyalPGCentre\WebApp\Controllers\AboutusController.cs:line 261
+-----------------------------------
+Date Time: 03-01-2021 19:03:14
+Message: The underlying provider failed on Open.
+Exception:    at System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   at System.Data.Entity.Core.Objects.ObjectContext.EnsureConnection(Boolean shouldMonitorTransactions)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass47`1.<ExecuteFunction>b__45()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ExecutionOptions executionOptions, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, ObjectParameter[] parameters)
+   at DAL.RoyalPGCentreEntities.GetNewsDetails() in E:\FL\git\RoyalPGCentre\DAL\RoyalPGCentre.Context.cs:line 182
+   at DAL.Implementation.NewsDAL.GetNewsList() in E:\FL\git\RoyalPGCentre\DAL\Implementation\NewsDAL.cs:line 26
+   at WebApp.Controllers.AboutusController.GetNewsList() in E:\FL\git\RoyalPGCentre\WebApp\Controllers\AboutusController.cs:line 261

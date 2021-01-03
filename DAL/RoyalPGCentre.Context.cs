@@ -182,7 +182,7 @@ namespace DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNewsDetails_Result>("GetNewsDetails");
         }
     
-        public virtual int AddUpdateNews(Nullable<int> id, string name, string description, Nullable<System.DateTime> date, ObjectParameter newsId)
+        public virtual int AddUpdateNews(Nullable<int> id, string name, string description, Nullable<System.DateTime> date, Nullable<System.DateTime> expiresDate, ObjectParameter newsId)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -200,7 +200,16 @@ namespace DAL
                 new ObjectParameter("date", date) :
                 new ObjectParameter("date", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddUpdateNews", idParameter, nameParameter, descriptionParameter, dateParameter, newsId);
+            var expiresDateParameter = expiresDate.HasValue ?
+                new ObjectParameter("expiresDate", expiresDate) :
+                new ObjectParameter("expiresDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddUpdateNews", idParameter, nameParameter, descriptionParameter, dateParameter, expiresDateParameter, newsId);
+        }
+    
+        public virtual ObjectResult<GetLatestNews_Result> GetLatestNews()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetLatestNews_Result>("GetLatestNews");
         }
     }
 }

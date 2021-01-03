@@ -71,6 +71,9 @@
     <Compile Include="GetDepartmentsDetails_Result.cs">
       <DependentUpon>RoyalPGCentre.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetLatestNews_Result.cs">
+      <DependentUpon>RoyalPGCentre.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetNewsDetails_Result.cs">
       <DependentUpon>RoyalPGCentre.tt</DependentUpon>
     </Compile>
@@ -120,7 +123,9 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="RoyalPGCentre.edmx.diagram">
       <DependentUpon>RoyalPGCentre.edmx</DependentUpon>
